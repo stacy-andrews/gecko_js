@@ -1,8 +1,15 @@
 "use strict";
 
 var React = require("react");
+var ReactPropTypes = React.PropTypes;
 
 var Food = React.createClass({
+
+  propTypes: {
+    onRemove: ReactPropTypes.func.isRequired,
+    value: ReactPropTypes.object.isRequired
+  },
+
   render: function() {
     return (
       <div className="row">
@@ -25,13 +32,17 @@ var Food = React.createClass({
           0
         </div>
         <div className="form-group col-sm-1">
-          <button type="button" className="btn btn-danger form-control"><span className="glyphicon glyphicon-remove"></span></button>
+          <button type="button" className="btn btn-danger form-control" onClick={this.removeClicked}><span className="glyphicon glyphicon-remove"></span></button>
         </div>
         <div className="form-group col-sm-1">
           <button type="button" className="btn btn-info form-control"><span className="glyphicon glyphicon-list-alt"></span></button>
         </div>
       </div>
     );
+  },
+
+  removeClicked: function() {
+    this.props.onRemove(this.props.value);
   }
 });
 

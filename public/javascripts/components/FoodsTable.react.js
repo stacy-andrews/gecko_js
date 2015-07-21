@@ -1,6 +1,7 @@
 "use strict";
 
 var React = require("react");
+var _ = require("lodash");
 
 var Food = require("./Food.react");
 
@@ -8,7 +9,7 @@ var FoodsTable = React.createClass({
 
   getInitialState: function() {
     return {
-      foods: [1, 2, 3]
+      foods: []
     };
   },
 
@@ -16,11 +17,14 @@ var FoodsTable = React.createClass({
     var rows = [];
 
     for (var i = 0; i < this.state.foods.length; i++) {
-      rows.push(<Food />);
+      rows.push(<Food value={this.state.foods[i]} onRemove={this.removeFood} />);
     }
 
     return (
       <div>
+       <div>
+          <a className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></a>
+        </div>
         <div className="row">
           <label className="control-label col-sm-2">
             Time
@@ -44,6 +48,33 @@ var FoodsTable = React.createClass({
         {rows}
       </div>
     );
+  },
+
+  newFood: function() {
+    var foods = this.state.foods;
+
+    foods.push({
+      row: Math.random().toString(36).substring(7),
+      food: "",
+      energy: "",
+      quantity: ""
+    });
+
+    this.setState({
+      foods: foods
+    });
+  },
+
+  removeFood: function(food) {
+    var foods = this.state.foods;
+
+    _.remove(foods, function(f) {
+      return f.row === food.row;
+    });
+
+    this.setState({
+      foods: foods
+    });
   }
 
 });

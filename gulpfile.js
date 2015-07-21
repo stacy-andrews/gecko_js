@@ -11,7 +11,7 @@ var options = {
 };
 
 gulp.task("js", function() {
-  browserify(["./public/javascripts/app.js"])
+  browserify(["./public/javascripts/app.js"], { debug: true })
     .transform(reactify)
     .bundle()
     .pipe(source("bundle.js"))
