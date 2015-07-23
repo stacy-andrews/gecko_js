@@ -22,9 +22,6 @@ var FoodsTable = React.createClass({
 
     return (
       <div>
-       <div>
-          <a className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></a>
-        </div>
         <div className="row">
           <label className="control-label col-sm-2">
             Time
@@ -32,20 +29,17 @@ var FoodsTable = React.createClass({
           <label className="control-label col-sm-2">
             Food
           </label>
-          <label className="control-label col-sm-2">
+          <label className="control-label col-sm-3">
             Energy
           </label>
           <label className="control-label col-sm-2">
             Quantity
           </label>
-          <label className="control-label col-sm-2">
-            &nbsp;
-          </label>
-          <label className="control-label col-sm-2">
-            &nbsp;
-          </label>
         </div>
         {rows}
+        <div>
+          <a className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></a>
+        </div>
       </div>
     );
   },

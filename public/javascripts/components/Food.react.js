@@ -22,26 +22,39 @@ var Food = React.createClass({
         <div className="form-group col-sm-2">
           <input className="form-control" type="text" placeholder="food" ref="food" value={food.food} onChange={this.foodChanged} />
         </div>
-        <div className="form-group col-sm-2">
-          <div className="form-group has-feedback">
-            <input className="form-control" type="text" placeholder="energy" />
-            <span className="glyphicon glyphicon-fire form-control-feedback"></span>
-          </div>
+        <div className="form-group col-sm-3">
+          <input className="form-control" type="text" placeholder="energy" ref="energy" value={food.energy} onChange={this.energyChanged} />
         </div>
         <div className="form-group col-sm-2">
           <input className="form-control" type="text" placeholder="quantity" />
         </div>
-        <div className="form-group col-sm-1">
-          {food.row}
-        </div>
-        <div className="form-group col-sm-1">
-          <button type="button" className="btn btn-danger form-control" onClick={this.removeClicked}><span className="glyphicon glyphicon-remove"></span></button>
-        </div>
-        <div className="form-group col-sm-1">
-          <button type="button" className="btn btn-info form-control"><span className="glyphicon glyphicon-list-alt"></span></button>
+        <div className="col-sm-1">
+          <div className="btn-group">
+            <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="caret"></span></button>
+            <ul className="dropdown-menu">
+              <li>
+                <a className="glyphicon glyphicon-fire" onClick={this.convertClicked} />
+              </li>
+              <li>
+                <a className="glyphicon glyphicon-list-alt" />
+              </li>
+              <li role="separator" className="divider"></li>
+              <li onClick={this.removeClicked}>
+                <a className="glyphicon glyphicon-remove" />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     );
+  },
+
+  convertClicked: function() {
+    var energy = this.refs.energy.props.value;
+
+    this.processChange(function(a) {
+      a.energy = energy * 4.184;
+    });
   },
 
 
@@ -57,11 +70,22 @@ var Food = React.createClass({
     });
   },
 
+  energyChanged: function(event) {
+    this.processChange(function(a) {
+      a.energy = event.target.value;
+    });
+  },
+
+  getValue: function(refName) {
+    return this.refs[refName].props.value;
+  },
+
   getChangeValue: function(override) {
     var value = {
       row: this.props.value.row,
-      time: this.refs.time.props.value,
-      food: this.refs.food.props.value
+      time: this.getValue("time"),
+      food: this.getValue("food"),
+      energy: this.getValue("energy")
     };
 
     override(value);
