@@ -5,7 +5,19 @@ var GeckoJSActions = require("../actions/YPetVetActions");
 
 var Header = React.createClass({
 
+  getInitialState: function() {
+    return {
+      isLoading: false
+    };
+  },
+
   render: function() {
+    var loading = <span />;
+
+    if(this.state.isLoading) {
+      loading = <span><img src="/images/loading-cylon.svg" /></span>;
+    }
+
     return (
       <div>
         <div style={{float: "left"}}>
@@ -17,7 +29,7 @@ var Header = React.createClass({
           </a>
         </div>
         <button type="button" className="btn btn-primary" onClick={this.onClickSave}>
-          <span><img src="/images/loading-cylon.svg" /></span>
+          {loading}
           <span>Save</span>
         </button>
         <button type="button" className="btn btn-danger" style={{float: "right"}}>
@@ -28,7 +40,11 @@ var Header = React.createClass({
   },
 
   onClickSave: function() {
-    GeckoJSActions.save();
+    this.setState({
+      isLoading: true
+    });
+
+    //GeckoJSActions.save();
   }
 
 });
