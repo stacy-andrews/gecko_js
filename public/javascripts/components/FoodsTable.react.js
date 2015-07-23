@@ -17,7 +17,7 @@ var FoodsTable = React.createClass({
     var rows = [];
 
     for (var i = 0; i < this.state.foods.length; i++) {
-      rows.push(<Food value={this.state.foods[i]} onRemove={this.removeFood} />);
+      rows.push(<Food value={this.state.foods[i]} onRemove={this.removeFood} onChange={this.changeFood} />);
     }
 
     return (
@@ -55,6 +55,7 @@ var FoodsTable = React.createClass({
 
     foods.push({
       row: Math.random().toString(36).substring(7),
+      time: "",
       food: "",
       energy: "",
       quantity: ""
@@ -71,6 +72,18 @@ var FoodsTable = React.createClass({
     _.remove(foods, function(f) {
       return f.row === food.row;
     });
+
+    this.setState({
+      foods: foods
+    });
+  },
+
+  changeFood: function(food) {
+    var foods = this.state.foods;
+
+    var index = _.indexOf(foods, _.find(foods, {row: food.row}));
+
+    foods.splice(index, 1, food);
 
     this.setState({
       foods: foods
