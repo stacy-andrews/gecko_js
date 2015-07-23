@@ -2,7 +2,7 @@
 
 var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
 
-var YPetVetActions = {
+var DailyEntryActionCreators = {
   save: function() {
     AppDispatcher.dispatch({
       actionType: "save"
@@ -10,4 +10,4 @@ var YPetVetActions = {
   }
 };
 
-module.exports = YPetVetActions;
+module.exports = DailyEntryActionCreators;

@@ -1,20 +1,20 @@
 "use strict";
 
 var React = require("react");
-var GeckoJSActions = require("../actions/YPetVetActions");
+var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
+
+var ReactPropTypes = React.PropTypes;
 
 var Header = React.createClass({
 
-  getInitialState: function() {
-    return {
-      isLoading: false
-    };
+  propTypes: {
+    isLoading: ReactPropTypes.object.isRequired
   },
 
   render: function() {
     var loading = <span />;
 
-    if(this.state.isLoading) {
+    if(this.props.isLoading) {
       loading = <span><img src="/images/loading-cylon.svg" /></span>;
     }
 
@@ -40,11 +40,7 @@ var Header = React.createClass({
   },
 
   onClickSave: function() {
-    this.setState({
-      isLoading: true
-    });
-
-    //GeckoJSActions.save();
+    DailyEntryActionCreators.save();
   }
 
 });

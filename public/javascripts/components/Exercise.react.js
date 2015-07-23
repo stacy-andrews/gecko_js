@@ -1,7 +1,6 @@
 "use strict";
 
 var React = require("react");
-var GeckoJSActions = require("../actions/YPetVetActions");
 
 var Exercise = React.createClass({
 

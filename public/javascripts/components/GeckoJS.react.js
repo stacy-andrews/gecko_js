@@ -1,14 +1,14 @@
 "use strict";
 
 var React = require("react");
-var YPetVetActions = require("../actions/YPetVetActions");
-var YPetVetStore = require("../stores/YPetVetStore");
+var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
+var DailyEntryStore = require("../stores/DailyEntryStore");
 var Header = require("./Header.react.js");
 var Exercise = require("./Exercise.react.js");
 var FoodsTable = require("./FoodsTable.react.js");
 
 function getYPetVetState() {
-  return YPetVetStore.getCurrent();
+  return DailyEntryStore.getCurrent();
 }
 
 var Gecko = React.createClass({
@@ -18,11 +18,11 @@ var Gecko = React.createClass({
   },
 
   componentDidMount: function() {
-    YPetVetStore.addChangeListener(this.onDataChange);
+    DailyEntryStore.addChangeListener(this.onDataChange);
   },
 
   componentWillUnmount: function() {
-    YPetVetStore.removeChangeListener(this.onDataChange);
+    DailyEntryStore.removeChangeListener(this.onDataChange);
   },
 
   onDataChange: function() {
@@ -32,7 +32,7 @@ var Gecko = React.createClass({
   render: function() {
     return (
       <div>
-        <Header />
+        <Header isLoading={this.state.isLoading} />
         <div className="row">
           <div className="col-sm-6">
             <Exercise />
