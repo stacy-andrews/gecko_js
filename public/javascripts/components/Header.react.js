@@ -11,6 +11,10 @@ var Header = React.createClass({
     isLoading: ReactPropTypes.object.isRequired
   },
 
+  componentDidMount: function() {
+    DailyEntryActionCreators.load();
+  },
+
   render: function() {
     var loading = <span />;
 

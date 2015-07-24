@@ -43,12 +43,7 @@ var Gecko = React.createClass({
         </div>
         <FoodsTable />
       </div>
-
     );
-  },
-
-  onClickProceed: function() {
-    YPetVetActions.proceed();
   }
 
 });
