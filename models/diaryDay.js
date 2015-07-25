@@ -5,15 +5,15 @@ var diaryDaySchema = new mongoose.Schema({
   note: String,
   updated_at: { type: Date, default: Date.now },
   exercises: [ {
-    time: Date,
+    time: String,
     energy: Number,
     duration: Number,
     description: String
     }
   ],
   foods: [ {
-    start_time: Date,
-    unit_energy: Number,
+    time: String,
+    unitEnergy: Number,
     quantity: Number,
     carbohydrate: Number,
     fat: Number,

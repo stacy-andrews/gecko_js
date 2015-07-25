@@ -6,6 +6,13 @@ var assign = require("object-assign");
 // var request = require("superagent");
 
 var isLoading = false;
+var entry = {
+  exercises: [
+    { energy: "", time: "", duration: "" },
+    { energy: "", time: "", duration: "" }
+  ],
+  foods: []
+};
 
 var CHANGE_EVENT = "change";
 
@@ -24,7 +31,12 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
 
   getCurrent: function() {
     return {
-        isLoading: isLoading
+        isLoading: isLoading,
+        morningExercise: entry.exercises[0],
+        eveningExercise: entry.exercises[1],
+        entry: entry,
+        foods: entry.foods,
+        id: entry._id
     };
   }
 });
@@ -34,6 +46,21 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case "save":
       isLoading = true;
+      YPetVetStore.emitChange();
+      break;
+    case "dailyEntry_get_started":
+      isLoading = true;
+      YPetVetStore.emitChange();
+      break;
+    case "dailyEntry_get_completed":
+      isLoading = false;
+      entry = action.entry;
+
+      if(entry.exercises.length === 0) {
+        entry.exercises.push({ energy: "", time: "", duration: "" });
+        entry.exercises.push({ energy: "", time: "", duration: "" });
+      }
+
       YPetVetStore.emitChange();
       break;
     default:

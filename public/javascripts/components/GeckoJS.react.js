@@ -32,18 +32,51 @@ var Gecko = React.createClass({
   render: function() {
     return (
       <div>
-        <Header isLoading={this.state.isLoading} />
+        <Header isLoading={this.state.isLoading} onSave={this.save} />
+        <div className="panel panel-default">
+        <div className="panel-body">
         <div className="row">
           <div className="col-sm-6">
-            <Exercise />
+            <Exercise value={this.state.morningExercise} onChange={this.morningExerciseChanged} />
           </div>
           <div className="col-sm-6">
-            <Exercise />
+            <Exercise value={this.state.eveningExercise} onChange={this.eveningExerciseChanged} />
           </div>
         </div>
-        <FoodsTable />
+        </div>
+        </div>
+        <FoodsTable value={this.state.foods} onChange={this.foodsChanged} />
       </div>
     );
+  },
+
+  foodsChanged: function(value) {
+    this.setState({
+      foods: value
+    });
+  },
+
+  morningExerciseChanged: function(value) {
+    this.setState({
+      morningExercise: value
+    });
+  },
+
+  eveningExerciseChanged: function(value) {
+    this.setState({
+      eveningExercise: value
+    });
+  },
+
+  save: function() {
+    DailyEntryActionCreators.save({
+      id: this.state.id,
+      exercises: [
+        this.state.morningExercise,
+        this.state.eveningExercise
+      ],
+      foods: this.state.foods
+    });
   }
 
 });

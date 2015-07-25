@@ -1,0 +1,3 @@
+mongo ds033307.mongolab.com:33307/gecko_dev -u gecko -p 6CWLV8PQCB5vZgP6XAnDnuQNPJ7p
+
+gecko:6CWLV8PQCB5vZgP6XAnDnuQNPJ7p@ds033307.mongolab.com:33307/gecko_dev

@@ -7,12 +7,11 @@ var bodyParser = require("body-parser");
 
 var routes = require("./routes/index");
 var diaryDays = require("./routes/api/entries");
-
-// var mongoose = require('mongoose');
-
-// mongoose.connect('mongodb://mdb/gecko');
+var mongoInitialiser = require("./initialisers/mongo");
 
 var app = express();
+
+mongoInitialiser.initialise();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

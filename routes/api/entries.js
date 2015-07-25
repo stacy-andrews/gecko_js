@@ -2,16 +2,10 @@ var express = require("express");
 var router = express.Router();
 
 var mongoose = require("mongoose");
-var Order = require("../../models/diaryDay.js");
+var Entry = require("../../models/diaryDay.js");
 var _ = require("lodash");
 
 var moment = require("moment");
-
-function buildSelectedOptions(availableOptions, selectedProteins) {
-  return _.filter(availableOptions, function(o) { 
-    return _.includes(selectedProteins, o.protein);
-  });
-}
 
 router.get("/:date", function(req, res, next) {
   var today = moment(req.params.date);
@@ -23,52 +17,80 @@ router.get("/:date", function(req, res, next) {
     return next(err);
   }
 
-  res.json({today: today});
+  var query = Entry.findOne({ "date": { "$eq": today } });
+
+  query.exec(function (err, entry) {
+    if (err) {
+      var err = new Error("Not known");
+      err.status = 404;
+
+      return next(err);
+    }
+
+    return res.json(entry);
+  });
+
 });
 
-// router.post("/today", function(req, res, next) {
-//   var options;
+router.post("/:date", function(req, res, next) {
+  var today = moment(req.params.date);
 
-//   var order = new Order(req.body);
+  if(!today.isValid()) {
+    var err = new Error("Invalid date");
+    err.status = 400;
 
-//   order.user = req.user.email;
-//   order.practice = req.user.customData.practiceId;
+    return next(err);
+  }
 
-//   order.status = "Pending";
+  var entry = new Entry({ date: today });
 
-//   options = Calculator.getOptions(order.pet.weight, order.pet.activityLevel, order.course);
-//   order.selectedOptions = buildSelectedOptions(options, req.body.selectedProteins);
-  
-//   order.save(function (err, order) {
-//     if (err) {
-//       return res.send(err);
-//     }
+  entry.save(function (err, entry) {
+    if (err) {
+      var error = new Error("Error");
+      error.status = 500;
+      return next(error);
+    }
 
-//     res.send({ id: order.id });
-//   });
-  
-// });
+    return res.json(entry);
+  });
+});
 
-// router.put("/:id", function(req, res, next) {
-//   return Order.findById(req.params.id, function (err, order) {
+router.put("/:date", function(req, res, next) {
+  var today = moment(req.params.date);
 
-//     if (!err) {
-//       order.status = req.body.status;
+  if(!today.isValid()) {
+    var err = new Error("Invalid date");
+    err.status = 400;
 
-//       order.save(function (err, order) {
-//         if (err) {
-//           return res.send(err);
-//         }
+    return next(err);
+  }
 
-//         mailer.send(order);
-        
-//         res.send({ id: order.id });
-//       });
-//     } else {
-//       return res.json(err);
-//     }
-//   });
-// });
+  var query = Entry.findOne({ "date": { "$eq": today } });
+
+  query.exec(function (err, entry) {
+    if (err) {
+      var err = new Error("Not known");
+      err.status = 404;
+
+      return next(err);
+    }
+
+    //todo - update fields here
+    entry.exercises = req.body.exercises;
+    entry.foods = req.body.foods;
+
+    entry.save(function (err, entry) {
+      if (err) {
+        var error = new Error("Error");
+        error.status = 500;
+        error.err = err;
+        return next(error);
+      }
+
+      return res.json(entry);
+    });
+  });
+});
 
 
 

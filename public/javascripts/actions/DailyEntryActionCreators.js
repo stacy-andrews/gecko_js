@@ -2,17 +2,24 @@
 
 var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
 
+var EntryApi = require("../api/dailyEntry");
+
 var DailyEntryActionCreators = {
-  save: function() {
+  save: function(entry) {
     AppDispatcher.dispatch({
-      actionType: "save"
+      actionType: "dailyEntry_save_started",
+      entry: entry
     });
+
+    EntryApi.save(entry);
   },
 
   load: function() {
     AppDispatcher.dispatch({
-      actionType: "load"
+      actionType: "dailyEntry_get_started"
     });
+
+    EntryApi.get();
   }
 
 };

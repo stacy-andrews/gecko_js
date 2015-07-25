@@ -16,21 +16,23 @@ var Food = React.createClass({
 
     return (
       <div className="row">
-        <div className="form-group col-sm-2">
-          {food.time} <input className="form-control" type="time" ref="time" value={food.time} onChange={this.timeChanged} />
-        </div>
-        <div className="form-group col-sm-2">
-          <input className="form-control" type="text" placeholder="food" ref="food" value={food.food} onChange={this.foodChanged} />
+        <div className="form-group col-sm-3">
+          <input className="form-control" type="time" ref="time" value={food.time} onChange={this.timeChanged} />
         </div>
         <div className="form-group col-sm-3">
-          <input className="form-control" type="text" placeholder="energy" ref="energy" value={food.energy} onChange={this.energyChanged} />
+          <input className="form-control" type="text" placeholder="food" ref="description" value={food.description} onChange={this.foodChanged} />
         </div>
         <div className="form-group col-sm-2">
-          <input className="form-control" type="text" placeholder="quantity" />
+          <input className="form-control" type="text" placeholder="energy" ref="unitEnergy" value={food.unitEnergy} onChange={this.energyChanged} />
+        </div>
+        <div className="form-group col-sm-2">
+          <input className="form-control" type="text" placeholder="quantity" ref="quantity" value={food.quantity} onChange={this.quantityChanged} />
         </div>
         <div className="col-sm-1">
           <div className="btn-group">
-            <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span className="caret"></span></button>
+            <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span className="glyphicon glyphicon-menu-hamburger" />
+            </button>
             <ul className="dropdown-menu">
               <li>
                 <a className="glyphicon glyphicon-fire" onClick={this.convertClicked} />
@@ -50,10 +52,10 @@ var Food = React.createClass({
   },
 
   convertClicked: function() {
-    var energy = this.refs.energy.props.value;
+    var energy = this.refs.unitEnergy.props.value;
 
     this.processChange(function(a) {
-      a.energy = energy * 4.184;
+      a.unitEnergy = energy * 4.184;
     });
   },
 
@@ -66,13 +68,19 @@ var Food = React.createClass({
 
   foodChanged: function(event) {
     this.processChange(function(a) {
-      a.food = event.target.value;
+      a.description = event.target.value;
     });
   },
 
   energyChanged: function(event) {
     this.processChange(function(a) {
-      a.energy = event.target.value;
+      a.unitEnergy = event.target.value;
+    });
+  },
+
+  quantityChanged: function(event) {
+    this.processChange(function(a) {
+      a.quantity = event.target.value;
     });
   },
 
@@ -84,8 +92,9 @@ var Food = React.createClass({
     var value = {
       row: this.props.value.row,
       time: this.getValue("time"),
-      food: this.getValue("food"),
-      energy: this.getValue("energy")
+      description: this.getValue("description"),
+      unitEnergy: this.getValue("unitEnergy"),
+      quantity: this.getValue("quantity")
     };
 
     override(value);
