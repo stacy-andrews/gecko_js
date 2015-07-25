@@ -11,7 +11,7 @@ function getYPetVetState() {
   return DailyEntryStore.getCurrent();
 }
 
-var Gecko = React.createClass({
+var DailyEntry = React.createClass({
 
   getInitialState: function() {
     return getYPetVetState();
@@ -81,4 +81,4 @@ var Gecko = React.createClass({
 
 });
 
-module.exports = Gecko;
+module.exports = DailyEntry;
