@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 var diaryDaySchema = new mongoose.Schema({
   date: Date,
   note: String,
-  updated_at: { type: Date, default: Date.now },
+  updatedAt: { type: Date, default: Date.now },
   exercises: [ {
     time: String,
     energy: Number,
@@ -31,4 +31,4 @@ var diaryDaySchema = new mongoose.Schema({
   ]
 });
 
-module.exports = mongoose.model('DiaryDay', diaryDaySchema);
+module.exports = mongoose.model("DiaryDay", diaryDaySchema);

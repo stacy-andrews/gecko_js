@@ -21,7 +21,7 @@ function fetch() {
 function build(id) {
   var today = moment();
 
-  if (id !== "") {
+  if (id) {
     return request
       .put("api/diaryEntries/" + today.format("YYYY-MM-DD"));
   }

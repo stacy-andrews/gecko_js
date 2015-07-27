@@ -27,6 +27,13 @@ router.get("/:date", function(req, res, next) {
       return next(err);
     }
 
+    if (!entry) {
+      var err = new Error("Not known");
+      err.status = 404;
+
+      return next(err);
+    }
+
     return res.json(entry);
   });
 
@@ -42,7 +49,9 @@ router.post("/:date", function(req, res, next) {
     return next(err);
   }
 
-  var entry = new Entry({ date: today });
+  var entry = new Entry(req.body);
+
+  entry.date = today;
 
   entry.save(function (err, entry) {
     if (err) {
