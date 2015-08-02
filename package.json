@@ -19,7 +19,9 @@
     "numeral": "^1.5.3",
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
+    "react-bootstrap-async-autocomplete": "0.0.3",
     "react-router": "^0.13.3",
+    "react-twitter-typeahead": "^1.1.2",
     "serve-favicon": "~2.2.0",
     "superagent": "^1.2.0"
   },

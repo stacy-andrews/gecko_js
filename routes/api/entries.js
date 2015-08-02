@@ -1,37 +1,33 @@
+"use strict";
+
 var express = require("express");
 var router = express.Router();
 
-var mongoose = require("mongoose");
 var Entry = require("../../models/diaryDay.js");
-var _ = require("lodash");
 
 var moment = require("moment");
+
+function build(message, status) {
+  var err = new Error(message);
+  err.status = status;
+}
 
 router.get("/:date", function(req, res, next) {
   var today = moment(req.params.date);
 
   if(!today.isValid()) {
-    var err = new Error("Invalid date");
-    err.status = 400;
-
-    return next(err);
+    return next(build("Invalid date", 400));
   }
 
   var query = Entry.findOne({ "date": { "$eq": today } });
 
   query.exec(function (err, entry) {
     if (err) {
-      var err = new Error("Not known");
-      err.status = 404;
-
       return next(err);
     }
 
     if (!entry) {
-      var err = new Error("Not known");
-      err.status = 404;
-
-      return next(err);
+      return next(build("Not known", 404));
     }
 
     return res.json(entry);
@@ -43,24 +39,19 @@ router.post("/:date", function(req, res, next) {
   var today = moment(req.params.date);
 
   if(!today.isValid()) {
-    var err = new Error("Invalid date");
-    err.status = 400;
-
-    return next(err);
+    return next(build("Invalid date", 400));
   }
 
   var entry = new Entry(req.body);
 
   entry.date = today;
 
-  entry.save(function (err, entry) {
+  entry.save(function (err, createdEntry) {
     if (err) {
-      var error = new Error("Error");
-      error.status = 500;
-      return next(error);
+      return next(err);
     }
 
-    return res.json(entry);
+    return res.json(createdEntry);
   });
 });
 
@@ -68,39 +59,31 @@ router.put("/:date", function(req, res, next) {
   var today = moment(req.params.date);
 
   if(!today.isValid()) {
-    var err = new Error("Invalid date");
-    err.status = 400;
-
-    return next(err);
+    return next(build("Invalid date", 400));
   }
 
   var query = Entry.findOne({ "date": { "$eq": today } });
 
   query.exec(function (err, entry) {
     if (err) {
-      var err = new Error("Not known");
-      err.status = 404;
-
-      return next(err);
+      return next(build("Not known", 404));
     }
 
-    //todo - update fields here
+    if (!entry) {
+      return next(build("Not known", 404));
+    }
+
     entry.exercises = req.body.exercises;
     entry.foods = req.body.foods;
 
-    entry.save(function (err, entry) {
-      if (err) {
-        var error = new Error("Error");
-        error.status = 500;
-        error.err = err;
-        return next(error);
+    entry.save(function (saveErr, savedEntry) {
+      if (saveErr) {
+        return next(saveErr);
       }
 
-      return res.json(entry);
+      return res.json(savedEntry);
     });
   });
 });
-
-
 
 module.exports = router;

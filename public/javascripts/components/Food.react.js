@@ -2,6 +2,7 @@
 
 var React = require("react");
 var ReactPropTypes = React.PropTypes;
+var TypeAhead = require("./FoodTypeahead.react");
 
 var Food = React.createClass({
 
@@ -13,14 +14,19 @@ var Food = React.createClass({
 
   render: function() {
     var food = this.props.value;
+    var bloodhoundConfig = {
+      local: states
+    };
 
+    var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California'];//.... 
+ // <input className="form-control" type="text" placeholder="food" ref="description" value={food.description} onChange={this.foodChanged} />
     return (
       <div className="row">
         <div className="form-group col-sm-3">
           <input className="form-control" type="time" ref="time" value={food.time} onChange={this.timeChanged} />
         </div>
         <div className="form-group col-sm-3">
-          <input className="form-control" type="text" placeholder="food" ref="description" value={food.description} onChange={this.foodChanged} />
+           <TypeAhead value={food.description} onChange={this.foodChanged} ref="description" onOptionSelected={this.foodTypeAheadOptionSelected} />
         </div>
         <div className="form-group col-sm-2">
           <input className="form-control" type="text" placeholder="energy" ref="unitEnergy" value={food.unitEnergy} onChange={this.energyChanged} />
@@ -51,6 +57,21 @@ var Food = React.createClass({
     );
   },
 
+  searchRequested: function() {
+
+  },
+
+  itemSelected: function() {
+
+  },
+
+  foodTypeAheadOptionSelected: function(food) {
+    this.processChange(function(a) {
+      a.unitEnergy = food.unitEnergy;
+      a.description = food.description;
+    });
+  },
+
   convertClicked: function() {
     var energy = this.refs.unitEnergy.props.value;
 
@@ -58,7 +79,6 @@ var Food = React.createClass({
       a.unitEnergy = energy * 4.184;
     });
   },
-
 
   timeChanged: function(event) {
     this.processChange(function(a) {
