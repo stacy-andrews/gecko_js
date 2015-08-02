@@ -14,11 +14,7 @@ var Food = React.createClass({
 
   render: function() {
     var food = this.props.value;
-    var bloodhoundConfig = {
-      local: states
-    };
 
-    var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California'];//.... 
  // <input className="form-control" type="text" placeholder="food" ref="description" value={food.description} onChange={this.foodChanged} />
     return (
       <div className="row">
@@ -110,7 +106,7 @@ var Food = React.createClass({
 
   getChangeValue: function(override) {
     var value = {
-      row: this.props.value.row,
+      _id: this.props.value._id,
       time: this.getValue("time"),
       description: this.getValue("description"),
       unitEnergy: this.getValue("unitEnergy"),

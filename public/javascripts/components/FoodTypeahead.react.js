@@ -5,7 +5,7 @@ var ReactPropTypes = React.PropTypes;
 
 var SearchBox = React.createClass({
   propTypes: {
-    value: ReactPropTypes.object.isRequired,
+    value: ReactPropTypes.string.isRequired,
     onChange: ReactPropTypes.func.isRequired,
     onOptionSelected: ReactPropTypes.func.isRequired
   },

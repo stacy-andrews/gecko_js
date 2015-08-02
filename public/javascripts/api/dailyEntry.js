@@ -5,33 +5,29 @@ var moment = require("moment");
 
 var DailyEntryServerActionCreators = require("../actions/DailyEntryServerActionCreators");
 
-function fetch() {
-  var today = moment();
-
-  request("api/diaryEntries/" + today.format("YYYY-MM-DD"))
+function fetch(date) {
+  request("api/diaryEntries/" + date.format("YYYY-MM-DD"))
     .end(function(err, res) {
       if (res.ok) {
         DailyEntryServerActionCreators.receiveEntry(res.body);
       } else {
-        console.log("Oh no! error " + res.text);
+        DailyEntryServerActionCreators.receiveNotFoundEntry(date);
       }
     });
 }
 
-function build(id) {
-  var today = moment();
-
+function build(id, date) {
   if (id) {
     return request
-      .put("api/diaryEntries/" + today.format("YYYY-MM-DD"));
+      .put("api/diaryEntries/" + date.format("YYYY-MM-DD"));
   }
 
   return request
-          .post("api/diaryEntries/" + today.format("YYYY-MM-DD"));
+          .post("api/diaryEntries/" + date.format("YYYY-MM-DD"));
 }
 
-function save(entry) {
-  build(entry.id)
+function save(entry, date) {
+  build(entry.id, date)
     .send(entry)
     .set("Accept", "application/json")
     .end(function(err, res){

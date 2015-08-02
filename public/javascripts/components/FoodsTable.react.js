@@ -19,7 +19,7 @@ var FoodsTable = React.createClass({
     var foods = this.props.value;
 
     for (var i = 0; i < foods.length; i++) {
-      rows.push(<Food value={foods[i]} onRemove={this.removeFood} onChange={this.changeFood} />);
+      rows.push(<Food key={foods[i]._id} value={foods[i]} onRemove={this.removeFood} onChange={this.changeFood} />);
     }
 
     return (
@@ -54,7 +54,7 @@ var FoodsTable = React.createClass({
     var foods = this.props.value;
 
     foods.push({
-      row: Math.random().toString(36).substring(7),
+      _id: Math.random().toString(36).substring(7),
       time: "",
       food: "",
       energy: "",
@@ -68,7 +68,7 @@ var FoodsTable = React.createClass({
     var foods = this.props.value;
 
     _.remove(foods, function(f) {
-      return f.row === food.row;
+      return f._id === food._id;
     });
 
     this.props.onChange(foods);
@@ -77,7 +77,7 @@ var FoodsTable = React.createClass({
   changeFood: function(food) {
     var foods = this.props.value;
 
-    var index = _.indexOf(foods, _.find(foods, {row: food.row}));
+    var index = _.indexOf(foods, _.find(foods, {_id: food._id}));
 
     foods.splice(index, 1, food);
 

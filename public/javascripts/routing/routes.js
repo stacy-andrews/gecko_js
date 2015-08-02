@@ -9,9 +9,10 @@ var App = require("components/App.react");
 
 var routes = (
   <Route path="/" handler={App}>
-    <Route name="dailyEntry" path="entry/" handler={DailyEntry} />
+    <Route name="dailyEntry" path="entry/:year/:month/:day" handler={DailyEntry} />
+    <Route name="dailyEntryRoot" path="entry/" handler={DailyEntry} />
 
-    <Redirect from="*" to="dailyEntry" />
+    <Redirect from="*" to="dailyEntryRoot" />
   </Route>
   );
 

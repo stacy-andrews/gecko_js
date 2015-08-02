@@ -6,6 +6,8 @@ var DailyEntryStore = require("../stores/DailyEntryStore");
 var Header = require("./Header.react.js");
 var Exercise = require("./Exercise.react.js");
 var FoodsTable = require("./FoodsTable.react.js");
+var ReactPropTypes = React.PropTypes;
+var moment = require("moment");
 
 function getYPetVetState() {
   return DailyEntryStore.getCurrent();
@@ -13,12 +15,40 @@ function getYPetVetState() {
 
 var DailyEntry = React.createClass({
 
+  propTypes: {
+    params: ReactPropTypes.object.isRequired
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    if(!this.isMounted()) {
+      return;
+    }
+
+    this.load(newProps.params);
+  },
+
   getInitialState: function() {
     return getYPetVetState();
   },
 
   componentDidMount: function() {
     DailyEntryStore.addChangeListener(this.onDataChange);
+
+    this.load(this.props.params);
+  },
+
+  load: function(params) {
+    var date = moment();
+
+    if(params.year) {
+      date = moment({
+        year: params.year,
+        month: params.month - 1,
+        day: params.day
+      });
+    }
+
+    DailyEntryActionCreators.load(date);
   },
 
   componentWillUnmount: function() {
@@ -32,7 +62,7 @@ var DailyEntry = React.createClass({
   render: function() {
     return (
       <div>
-        <Header isLoading={this.state.isLoading} onSave={this.save} />
+        <Header params={this.props.params} isLoading={this.state.isLoading} onSave={this.save} />
         <div className="panel panel-default">
         <div className="panel-body">
         <div className="row">
@@ -68,6 +98,20 @@ var DailyEntry = React.createClass({
     });
   },
 
+  getCurrentDate: function(params) {
+    var date = moment();
+
+    if(params.year) {
+      date = moment({
+        year: params.year,
+        month: params.month - 1,
+        day: params.day
+      });
+    }
+
+    return date;
+  },
+
   save: function() {
     DailyEntryActionCreators.save({
       id: this.state.id,
@@ -76,7 +120,8 @@ var DailyEntry = React.createClass({
         this.state.eveningExercise
       ],
       foods: this.state.foods
-    });
+    },
+    this.getCurrentDate(this.props.params));
   }
 
 });

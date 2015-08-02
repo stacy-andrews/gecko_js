@@ -3,16 +3,22 @@
 var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
-// var request = require("superagent");
 
 var isLoading = false;
-var entry = {
+
+var basicEntry = {
   exercises: [
     { energy: "", time: "", duration: "" },
     { energy: "", time: "", duration: "" }
   ],
   foods: []
 };
+
+function clone() {
+  return JSON.parse(JSON.stringify(basicEntry));
+}
+
+var entry = clone();
 
 var CHANGE_EVENT = "change";
 
@@ -50,6 +56,11 @@ AppDispatcher.register(function(action) {
       break;
     case "dailyEntry_get_started":
       isLoading = true;
+      YPetVetStore.emitChange();
+      break;
+    case "dailyEntry_get_notfound":
+      isLoading = false;
+      entry = clone();
       YPetVetStore.emitChange();
       break;
     case "dailyEntry_get_completed":

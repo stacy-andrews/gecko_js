@@ -2,18 +2,16 @@
 
 var React = require("react");
 var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
+var moment = require("moment");
 
 var ReactPropTypes = React.PropTypes;
 
 var Header = React.createClass({
 
   propTypes: {
-    isLoading: ReactPropTypes.object.isRequired,
-    onSave: ReactPropTypes.func.isRequired
-  },
-
-  componentDidMount: function() {
-    DailyEntryActionCreators.load();
+    isLoading: ReactPropTypes.bool.isRequired,
+    onSave: ReactPropTypes.func.isRequired,
+    params: ReactPropTypes.object.isRequired
   },
 
   render: function() {
@@ -35,7 +33,6 @@ var Header = React.createClass({
             <button className="btn btn-info">
               <span className="glyphicon glyphicon-chevron-right"></span>
             </button>
-            
             </div>
             <button type="button" className="btn btn-primary" onClick={this.onClickSave}>
               {loading}
