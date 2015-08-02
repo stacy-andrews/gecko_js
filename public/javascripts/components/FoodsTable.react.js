@@ -14,12 +14,22 @@ var FoodsTable = React.createClass({
     onChange: ReactPropTypes.func.isRequired
   },
 
+  componentWillReceiveProps: function(newProps) {
+    for (var i = newProps.length - 1; i >= 0; i--) {
+      newProps[i].key = newProps[i]._id;
+    }
+  },
+
   render: function() {
     var rows = [];
     var foods = this.props.value;
 
     for (var i = 0; i < foods.length; i++) {
-      rows.push(<Food key={foods[i]._id} value={foods[i]} onRemove={this.removeFood} onChange={this.changeFood} />);
+      if(foods[i]._id) {
+        foods[i].key = foods[i]._id;
+      }
+
+      rows.push(<Food key={foods[i].key} value={foods[i]} onRemove={this.removeFood} onChange={this.changeFood} />);
     }
 
     return (
@@ -54,7 +64,7 @@ var FoodsTable = React.createClass({
     var foods = this.props.value;
 
     foods.push({
-      _id: Math.random().toString(36).substring(7),
+      key: Math.random().toString(36).substring(7),
       time: "",
       food: "",
       energy: "",
@@ -68,7 +78,7 @@ var FoodsTable = React.createClass({
     var foods = this.props.value;
 
     _.remove(foods, function(f) {
-      return f._id === food._id;
+      return f.key === food.key;
     });
 
     this.props.onChange(foods);
@@ -77,7 +87,7 @@ var FoodsTable = React.createClass({
   changeFood: function(food) {
     var foods = this.props.value;
 
-    var index = _.indexOf(foods, _.find(foods, {_id: food._id}));
+    var index = _.indexOf(foods, _.find(foods, {key: food.key}));
 
     foods.splice(index, 1, food);
 

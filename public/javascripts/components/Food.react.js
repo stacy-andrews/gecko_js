@@ -15,7 +15,6 @@ var Food = React.createClass({
   render: function() {
     var food = this.props.value;
 
- // <input className="form-control" type="text" placeholder="food" ref="description" value={food.description} onChange={this.foodChanged} />
     return (
       <div className="row">
         <div className="form-group col-sm-3">
@@ -51,14 +50,6 @@ var Food = React.createClass({
         </div>
       </div>
     );
-  },
-
-  searchRequested: function() {
-
-  },
-
-  itemSelected: function() {
-
   },
 
   foodTypeAheadOptionSelected: function(food) {
@@ -106,7 +97,7 @@ var Food = React.createClass({
 
   getChangeValue: function(override) {
     var value = {
-      _id: this.props.value._id,
+      key: this.props.value.key,
       time: this.getValue("time"),
       description: this.getValue("description"),
       unitEnergy: this.getValue("unitEnergy"),
