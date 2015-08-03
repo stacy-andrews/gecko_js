@@ -11,7 +11,8 @@ var FoodsTable = React.createClass({
 
   propTypes: {
     value: ReactPropTypes.array.isRequired,
-    onChange: ReactPropTypes.func.isRequired
+    onChange: ReactPropTypes.func.isRequired,
+    onEnergyChange: ReactPropTypes.func.isRequired
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -53,6 +54,7 @@ var FoodsTable = React.createClass({
         {rows}
         <div>
           <a className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></a>
+          {this.getEnergy(foods)}
         </div>
       </div>
       </div>
@@ -84,6 +86,18 @@ var FoodsTable = React.createClass({
     this.props.onChange(foods);
   },
 
+  getEnergy: function(foods) {
+    var energy = _.map(foods, function(f) {
+      return f.unitEnergy*f.quantity;
+    });
+
+    console.log(energy);
+
+    return _.reduce(energy, function(total, e) {
+      return total + e;
+    });
+  },
+
   changeFood: function(food) {
     var foods = this.props.value;
 
@@ -92,6 +106,7 @@ var FoodsTable = React.createClass({
     foods.splice(index, 1, food);
 
     this.props.onChange(foods);
+    this.props.onEnergyChange(this.getEnergy(foods));
   }
 
 });

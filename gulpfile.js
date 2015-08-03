@@ -33,6 +33,17 @@ gulp.task("lint", function() {
         .pipe(eslint.failOnError());
 });
 
+gulp.task("release-js", function() {
+  browserify(["./public/javascripts/app.js"],
+            {
+              paths: ["./public/javascripts/"]
+            })
+    .transform(reactify)
+    .bundle()
+    .pipe(source("bundle.js"))
+    .pipe(gulp.dest("./public/javascripts"));
+});
+
 gulp.task("watch", function() {
   gulp.watch(options.files, ["js", "lint"]);
 });
