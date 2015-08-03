@@ -5,6 +5,8 @@ var browserify = require("browserify");  // Bundles JS.
 var reactify = require("reactify");
 var source = require("vinyl-source-stream");
 var eslint = require("gulp-eslint");
+var uglify = require('gulp-uglify');
+var buffer = require('vinyl-buffer');
 
 var options = {
   files: ["./public/javascripts/**/*.js", "!./public/javascripts/bundle.js"]
@@ -33,16 +35,20 @@ gulp.task("lint", function() {
         .pipe(eslint.failOnError());
 });
 
-gulp.task("release-js", function() {
-  browserify(["./public/javascripts/app.js"],
-            {
-              paths: ["./public/javascripts/"]
-            })
+gulp.task("prod", function() {
+  browserify(["./public/javascripts/app.js"], 
+    { 
+      paths: ['./public/javascripts/'],
+      fullPaths: true ,
+    })
     .transform(reactify)
     .bundle()
     .pipe(source("bundle.js"))
+    .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest("./public/javascripts"));
 });
+
 
 gulp.task("watch", function() {
   gulp.watch(options.files, ["js", "lint"]);
