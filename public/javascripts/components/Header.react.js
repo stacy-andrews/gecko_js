@@ -11,7 +11,8 @@ var Header = React.createClass({
   propTypes: {
     isLoading: ReactPropTypes.bool.isRequired,
     onSave: ReactPropTypes.func.isRequired,
-    params: ReactPropTypes.object.isRequired
+    params: ReactPropTypes.object.isRequired,
+    energy: ReactPropTypes.string.isRequired
   },
 
   render: function() {
@@ -41,6 +42,7 @@ var Header = React.createClass({
             <button type="button" className="btn btn-danger">
               <span className="glyphicon glyphicon-remove"></span>
             </button>
+            {this.props.energy}
           </div>
         </div>
       </div>
