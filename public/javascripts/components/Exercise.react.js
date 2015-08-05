@@ -21,9 +21,9 @@ var Exercise = React.createClass({
           <div className="col-sm-10">
             <div className="input-group">
               <input className="form-control" type="text" placeholder="energy" ref="energy" value={exercise.energy} onChange={this.energyChanged} />
-              <div className="input-group-addon">
-                <a className="glyphicon glyphicon-fire" onClick={this.convert} />
-              </div>
+              <span className="input-group-btn">
+                <button className="btn btn-default" type="button" onClick={this.convert}><span className="glyphicon glyphicon-fire" /></button>
+              </span>
             </div>
           </div>
         </div>
