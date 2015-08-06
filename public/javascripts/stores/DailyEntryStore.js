@@ -3,6 +3,7 @@
 var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
+var _ = require("lodash");
 
 var isLoading = false;
 
@@ -16,6 +17,23 @@ var basicEntry = {
 
 function clone() {
   return JSON.parse(JSON.stringify(basicEntry));
+}
+
+function getEnergy(foods) {
+  var energy = _.map(foods, function(f) {
+    return f.unitEnergy * f.quantity;
+  });
+
+  return _.reduce(energy, function(total, e) {
+    return total + e;
+  });
+}
+
+function calcEnergy() {
+  return getEnergy(entry.foods) -
+          (2500 + 8125 +
+          entry.exercises[0].energy +
+          entry.exercises[1].energy);
 }
 
 var entry = clone();
@@ -42,7 +60,8 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
         eveningExercise: entry.exercises[1],
         entry: entry,
         foods: entry.foods,
-        id: entry._id
+        id: entry._id,
+        energy: calcEnergy()
     };
   }
 });

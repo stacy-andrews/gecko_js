@@ -91,8 +91,6 @@ var FoodsTable = React.createClass({
       return f.unitEnergy*f.quantity;
     });
 
-    console.log(energy);
-
     return _.reduce(energy, function(total, e) {
       return total + e;
     });

@@ -62,7 +62,7 @@ var DailyEntry = React.createClass({
   render: function() {
     return (
       <div>
-        <Header params={this.props.params} energy={this.getEnergy()} isLoading={this.state.isLoading} onSave={this.save} />
+        <Header params={this.props.params} energy={this.state.energy} isLoading={this.state.isLoading} onSave={this.save} />
         <div className="panel panel-default">
         <div className="panel-body">
         <div className="row">
@@ -119,10 +119,10 @@ var DailyEntry = React.createClass({
   },
 
   getEnergy: function() {
-    return this.state.foodEnergy - 
-            8368 - 
-            this.state.morningExercise.energy -
-            this.state.eveningExercise.energy;
+    return this.state.foodEnergy -
+            (2500 + 8125 +
+            this.state.morningExercise.energy +
+            this.state.eveningExercise.energy);
   },
 
   save: function() {
