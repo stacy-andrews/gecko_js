@@ -3,11 +3,11 @@
 var moment = require("moment");
 
 var navigator = function(settings) {
-  var date = moment();
-  date.startOf('day');
+  var currentDate = moment();
+  currentDate.startOf("day");
 
   if(settings.year) {
-    date = moment({
+    currentDate = moment({
       year: settings.year,
       month: settings.month - 1,
       day: settings.day
@@ -15,31 +15,33 @@ var navigator = function(settings) {
   }
 
   function buildUrl(date) {
+    if(!date) {
+      return "#/entry/";
+    }
+
     return "#/entry/" + date.format("YYYY/MM/DD");
   }
 
   function isToday(otherDate) {
-    var date = moment();
-    date.startOf('day');
+    var today = moment();
+    today.startOf("day");
 
-    return otherDate.diff(date, 'days');
+    return otherDate.diff(today, "days");
   }
 
   return {
     previousUrl: function() {
-      var yesterday = date.clone();
+      var yesterday = currentDate.clone();
       yesterday.add(-1, "days");
 
       return buildUrl(yesterday);
     },
     nextUrl: function() {
-      var tomorrow = date.clone();
+      var tomorrow = currentDate.clone();
       tomorrow.add(1, "days");
 
-      console.log(isToday(tomorrow));
-
       if (isToday(tomorrow) >= 0) {
-        return "#/entry/";
+        return buildUrl();
       }
 
       return buildUrl(tomorrow);

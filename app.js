@@ -9,6 +9,7 @@ var routes = require("./routes/index");
 
 var diaryDays = require("./routes/api/entries");
 var foods = require("./routes/api/foods");
+var favourites = require("./routes/api/favourites");
 
 var mongoInitialiser = require("./initialisers/mongo");
 
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", routes);
 app.use("/api/diaryEntries/", diaryDays);
 app.use("/api/foods/", foods);
+app.use("/api/favourites/", favourites);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

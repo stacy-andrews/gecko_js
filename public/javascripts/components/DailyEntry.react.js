@@ -9,7 +9,7 @@ var FoodsTable = require("./FoodsTable.react.js");
 var ReactPropTypes = React.PropTypes;
 var moment = require("moment");
 
-function getYPetVetState() {
+function getDailyEntryState() {
   return DailyEntryStore.getCurrent();
 }
 
@@ -28,7 +28,7 @@ var DailyEntry = React.createClass({
   },
 
   getInitialState: function() {
-    return getYPetVetState();
+    return getDailyEntryState();
   },
 
   componentDidMount: function() {
@@ -56,7 +56,7 @@ var DailyEntry = React.createClass({
   },
 
   onDataChange: function() {
-    this.setState(getYPetVetState());
+    this.setState(getDailyEntryState());
   },
 
   render: function() {

@@ -5,11 +5,14 @@ var browserify = require("browserify");  // Bundles JS.
 var reactify = require("reactify");
 var source = require("vinyl-source-stream");
 var eslint = require("gulp-eslint");
-var uglify = require('gulp-uglify');
-var buffer = require('vinyl-buffer');
+var uglify = require("gulp-uglify");
+var buffer = require("vinyl-buffer");
 
 var options = {
-  files: ["./public/javascripts/**/*.js", "!./public/javascripts/bundle.js"]
+  files: [
+    "./public/javascripts/**/*.js",
+    "!./public/javascripts/bundle.js"
+  ]
 };
 
 gulp.task("js", function() {
@@ -20,6 +23,7 @@ gulp.task("js", function() {
             })
     .transform(reactify)
     .bundle()
+    .on("error", function(err){ console.log(err.message); })
     .pipe(source("bundle.js"))
     .pipe(gulp.dest("./public/javascripts"));
 });
@@ -36,10 +40,10 @@ gulp.task("lint", function() {
 });
 
 gulp.task("prod", function() {
-  browserify(["./public/javascripts/app.js"], 
-    { 
-      paths: ['./public/javascripts/'],
-      fullPaths: true ,
+  browserify(["./public/javascripts/app.js"],
+    {
+      paths: ["./public/javascripts/"],
+      fullPaths: true
     })
     .transform(reactify)
     .bundle()

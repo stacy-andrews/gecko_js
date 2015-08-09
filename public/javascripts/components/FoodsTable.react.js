@@ -2,17 +2,17 @@
 
 var React = require("react");
 var ReactPropTypes = React.PropTypes;
-
 var _ = require("lodash");
 
+var energyCalculator = require("../libs/energyCalculator");
+var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
 var Food = require("./Food.react");
 
 var FoodsTable = React.createClass({
 
   propTypes: {
     value: ReactPropTypes.array.isRequired,
-    onChange: ReactPropTypes.func.isRequired,
-    onEnergyChange: ReactPropTypes.func.isRequired
+    onChange: ReactPropTypes.func.isRequired
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -52,14 +52,36 @@ var FoodsTable = React.createClass({
           </label>
         </div>
         {rows}
-        <div>
-          <a className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></a>
-          {this.getEnergy(foods)}
+          <div className="btn-toolbar">
+          <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
+
+        <div className="btn-group">
+            <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span className="glyphicon glyphicon-menu-hamburger" />
+            </button>
+            <ul className="dropdown-menu">
+              <li>
+                <a onClick={this.breakfastClicked}>Breakfast</a>
+              </li>
+              <li>
+                <a onClick={this.convertClicked}>Lunch</a>
+              </li>
+              <li onClick={this.removeClicked}>
+                <a onClick={this.convertClicked}>Dinner</a>
+              </li>
+            </ul>
+          </div>
+          {energyCalculator.calculateFoods(foods)}
+
+        </div>
         </div>
       </div>
       </div>
-      </div>
     );
+  },
+
+  breakfastClicked: function() {
+    DailyEntryActionCreators.favourites("breakfast");
   },
 
   newFood: function() {
@@ -86,16 +108,6 @@ var FoodsTable = React.createClass({
     this.props.onChange(foods);
   },
 
-  getEnergy: function(foods) {
-    var energy = _.map(foods, function(f) {
-      return f.unitEnergy*f.quantity;
-    });
-
-    return _.reduce(energy, function(total, e) {
-      return total + e;
-    });
-  },
-
   changeFood: function(food) {
     var foods = this.props.value;
 
@@ -104,7 +116,6 @@ var FoodsTable = React.createClass({
     foods.splice(index, 1, food);
 
     this.props.onChange(foods);
-    this.props.onEnergyChange(this.getEnergy(foods));
   }
 
 });

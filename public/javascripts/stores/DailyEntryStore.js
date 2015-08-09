@@ -4,6 +4,7 @@ var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
 var _ = require("lodash");
+var energyCalculator = require("../libs/energyCalculator");
 
 var isLoading = false;
 
@@ -19,26 +20,21 @@ function clone() {
   return JSON.parse(JSON.stringify(basicEntry));
 }
 
-function getEnergy(foods) {
-  var energy = _.map(foods, function(f) {
-    return f.unitEnergy * f.quantity;
-  });
-
-  return _.reduce(energy, function(total, e) {
-    return total + e;
-  });
-}
-
-function calcEnergy() {
-  return getEnergy(entry.foods) -
-          (2500 + 8125 +
-          entry.exercises[0].energy +
-          entry.exercises[1].energy);
-}
-
 var entry = clone();
 
 var CHANGE_EVENT = "change";
+
+function applyFavourites(favourites) {
+  for (var i = favourites.length - 1; i >= 0; i--) {
+    entry.foods.push({
+      key: Math.random().toString(36).substring(7),
+      time: "",
+      description: favourites[i].description,
+      energy: favourites[i].energy,
+      quantity: favourites[i].quantity
+    });
+  }
+}
 
 var YPetVetStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -61,7 +57,7 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
         entry: entry,
         foods: entry.foods,
         id: entry._id,
-        energy: calcEnergy()
+        energy: energyCalculator.calculate(entry)
     };
   }
 });
@@ -92,6 +88,13 @@ AppDispatcher.register(function(action) {
       }
 
       YPetVetStore.emitChange();
+      break;
+
+    case "favourites_get_completed":
+      applyFavourites(action.favourites);
+
+      YPetVetStore.emitChange();
+
       break;
     default:
       // no op

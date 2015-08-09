@@ -3,6 +3,7 @@
 var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
 
 var EntryApi = require("../api/dailyEntry");
+var FavouritesApi = require("../api/favourites");
 
 var DailyEntryActionCreators = {
   save: function(entry, date) {
@@ -21,6 +22,15 @@ var DailyEntryActionCreators = {
     });
 
     EntryApi.get(date);
+  },
+
+  favourites: function(name) {
+    AppDispatcher.dispatch({
+      actionType: "favourites_get_started",
+      name: name
+    });
+
+    FavouritesApi.get(name);
   }
 
 };
