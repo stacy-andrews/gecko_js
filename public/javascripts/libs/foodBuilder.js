@@ -19,7 +19,7 @@ module.exports = {
       key: generateKey(),
       time: getCurrentTime(),
       description: foodSettings.description,
-      energy: foodSettings.energy,
+      unitEnergy: foodSettings.unitEnergy,
       quantity: foodSettings.quantity
     };
   }

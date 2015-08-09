@@ -7,14 +7,17 @@ var favourties = {
   breakfast: [
     {
       description: "coco pops",
+      unitEnergy: 480,
       quantity: 4
     },
     {
       description: "rice milk",
+      unitEnergy: 522,
       quantity: 1
     },
     {
       description: "coffee (rice milk)",
+      unitEnergy: 522,
       quantity: 1
     }
   ]
