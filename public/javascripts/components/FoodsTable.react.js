@@ -7,6 +7,7 @@ var _ = require("lodash");
 var energyCalculator = require("../libs/energyCalculator");
 var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
 var Food = require("./Food.react");
+var foodBuilder = require("../libs/foodBuilder");
 
 var FoodsTable = React.createClass({
 
@@ -87,13 +88,7 @@ var FoodsTable = React.createClass({
   newFood: function() {
     var foods = this.props.value;
 
-    foods.push({
-      key: Math.random().toString(36).substring(7),
-      time: "",
-      food: "",
-      energy: "",
-      quantity: ""
-    });
+    foods.push(foodBuilder.build({}));
 
     this.props.onChange(foods);
   },
