@@ -26,7 +26,7 @@ var entry = clone();
 var CHANGE_EVENT = "change";
 
 function applyFavourites(favourites) {
-  for (var i = favourites.length - 1; i >= 0; i--) {
+  for (var i = 0; i < favourites.length; i++) {
     entry.foods.push(foodBuilder.build(favourites[i]));
   }
 }
@@ -60,7 +60,7 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
-    case "save":
+    case "dailyEntry_save_started":
       isLoading = true;
       YPetVetStore.emitChange();
       break;
@@ -84,7 +84,18 @@ AppDispatcher.register(function(action) {
 
       YPetVetStore.emitChange();
       break;
+    case "dailyEntry_save_completed":
+      isLoading = false;
+      entry = action.entry;
 
+      if(entry.exercises.length === 0) {
+        entry.exercises.push({ energy: "", time: "", duration: "" });
+        entry.exercises.push({ energy: "", time: "", duration: "" });
+      }
+
+      YPetVetStore.emitChange();
+
+      break;
     case "favourites_get_completed":
       applyFavourites(action.favourites);
 

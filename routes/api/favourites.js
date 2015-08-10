@@ -20,6 +20,23 @@ var favourties = {
       unitEnergy: 522,
       quantity: 1
     }
+  ],
+  lunch: [
+    {
+      description: "carrot",
+      unitEnergy: 125.52,
+      quantity: 2
+    },
+    {
+      description: "cherry tomato (punnet)",
+      unitEnergy: 188,
+      quantity: 1
+    },
+    {
+      description: "bread (gluten free)",
+      unitEnergy: 840,
+      quantity: 2
+    }
   ]
 };
 

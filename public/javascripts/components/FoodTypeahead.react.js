@@ -24,7 +24,10 @@ var SearchBox = React.createClass({
     var element = this.getDOMNode();
     $(element).typeahead({
       minLength: 1,
-      highlight: true
+      highlight: true,
+      classNames: {
+        menu: "dropdown-menu"
+      }
     },
     {
       name: "foods",

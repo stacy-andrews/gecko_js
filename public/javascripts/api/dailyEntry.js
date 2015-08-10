@@ -31,8 +31,12 @@ function save(entry, date) {
     .send(entry)
     .set("Accept", "application/json")
     .end(function(err, res){
+      if(err) {
+        
+      }
+
       if (res.ok) {
-        //OrderServerActionCreators.receiveCreatedOrder(res.body);
+        DailyEntryServerActionCreators.receiveCreatedEntry(res.body);
       } else {
         console.log("Oh no! error " + res.text);
       }

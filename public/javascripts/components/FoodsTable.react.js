@@ -27,7 +27,7 @@ var FoodsTable = React.createClass({
     var foods = this.props.value;
 
     for (var i = 0; i < foods.length; i++) {
-      if(foods[i]._id) {
+      if (foods[i]._id) {
         foods[i].key = foods[i]._id;
       }
 
@@ -65,10 +65,10 @@ var FoodsTable = React.createClass({
                 <a onClick={this.breakfastClicked}>Breakfast</a>
               </li>
               <li>
-                <a onClick={this.convertClicked}>Lunch</a>
+                <a onClick={this.lunchClicked}>Lunch</a>
               </li>
-              <li onClick={this.removeClicked}>
-                <a onClick={this.convertClicked}>Dinner</a>
+              <li>
+                <a onClick={this.dinnerClicked}>Dinner</a>
               </li>
             </ul>
           </div>
@@ -83,6 +83,14 @@ var FoodsTable = React.createClass({
 
   breakfastClicked: function() {
     DailyEntryActionCreators.favourites("breakfast");
+  },
+
+  lunchClicked: function() {
+    DailyEntryActionCreators.favourites("lunch");
+  },
+
+  dinnerClicked: function() {
+    DailyEntryActionCreators.favourites("dinner");
   },
 
   newFood: function() {
