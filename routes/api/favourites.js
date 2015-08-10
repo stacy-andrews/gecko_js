@@ -37,6 +37,33 @@ var favourties = {
       unitEnergy: 840,
       quantity: 2
     }
+  ],
+  dinner: [
+    {
+      description: "carrot",
+      unitEnergy: 125.52,
+      quantity: 2
+    },
+    {
+      description: "cherry tomato (punnet)",
+      unitEnergy: 188,
+      quantity: 1
+    },
+    {
+      description: "mini bites",
+      unitEnergy: 271,
+      quantity: 4
+    },
+    {
+      description: "ham (100g)",
+      unitEnergy: 677,
+      quantity: 2
+    },
+    {
+      description: "roast beef (100g)",
+      unitEnergy: 677,
+      quantity: 2
+    }
   ]
 };
 
