@@ -37,46 +37,42 @@ var FoodsTable = React.createClass({
     return (
       <div className="panel panel-default">
         <div className="panel-body">
-      <div>
-        <div className="row">
-          <label className="control-label col-sm-3">
-            Time
-          </label>
-          <label className="control-label col-sm-3">
-            Food
-          </label>
-          <label className="control-label col-sm-2">
-            Energy
-          </label>
-          <label className="control-label col-sm-2">
-            Quantity
-          </label>
-        </div>
-        {rows}
-          <div className="btn-toolbar">
-          <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
-
-        <div className="btn-group">
-            <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span className="glyphicon glyphicon-menu-hamburger" />
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <a onClick={this.breakfastClicked}>Breakfast</a>
-              </li>
-              <li>
-                <a onClick={this.lunchClicked}>Lunch</a>
-              </li>
-              <li>
-                <a onClick={this.dinnerClicked}>Dinner</a>
-              </li>
-            </ul>
+          <div className="row">
+            <label className="control-label col-sm-3">
+              Time
+            </label>
+            <label className="control-label col-sm-3">
+              Food
+            </label>
+            <label className="control-label col-sm-2">
+              Energy
+            </label>
+            <label className="control-label col-sm-2">
+              Quantity
+            </label>
           </div>
-          {energyCalculator.calculateFoods(foods)}
-
+          {rows}
+          <div className="btn-toolbar">
+            <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
+            <div className="btn-group">
+              <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span className="glyphicon glyphicon-menu-hamburger" />
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <a onClick={this.breakfastClicked} style={{ "cursor": "pointer" }}>Breakfast</a>
+                </li>
+                <li>
+                  <a onClick={this.lunchClicked}>Lunch</a>
+                </li>
+                <li>
+                  <a onClick={this.dinnerClicked}>Dinner</a>
+                </li>
+              </ul>
+            </div>
+            {energyCalculator.calculateFoods(foods)}
+          </div>
         </div>
-        </div>
-      </div>
       </div>
     );
   },
