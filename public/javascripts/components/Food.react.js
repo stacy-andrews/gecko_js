@@ -2,7 +2,7 @@
 
 var React = require("react");
 var ReactPropTypes = React.PropTypes;
-var TypeAhead = require("./FoodTypeahead.react");
+var FoodTypeAhead = require("./FoodTypeahead.react");
 
 var Food = React.createClass({
 
@@ -14,6 +14,27 @@ var Food = React.createClass({
 
   render: function() {
     var food = this.props.value;
+    var iosHack = { "cursor": "pointer" };
+
+    var menu = (
+      <div className="btn-group">
+        <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span className="glyphicon glyphicon-menu-hamburger" />
+        </button>
+        <ul className="dropdown-menu">
+          <li>
+            <a className="glyphicon glyphicon-fire" style={iosHack} onClick={this.convertClicked} />
+          </li>
+          <li>
+            <a className="glyphicon glyphicon-list-alt" />
+          </li>
+          <li role="separator" className="divider"></li>
+          <li >
+            <a className="glyphicon glyphicon-remove" style={iosHack} onClick={this.removeClicked} />
+          </li>
+        </ul>
+      </div>
+    );
 
     return (
       <div className="row">
@@ -21,7 +42,7 @@ var Food = React.createClass({
           <input className="form-control" type="time" ref="time" value={food.time} onChange={this.timeChanged} />
         </div>
         <div className="form-group col-sm-3">
-           <TypeAhead value={food.description} onChange={this.foodChanged} ref="description" onOptionSelected={this.foodTypeAheadOptionSelected} />
+           <FoodTypeAhead value={food.description} onChange={this.foodChanged} ref="description" onOptionSelected={this.foodTypeAheadOptionSelected} />
         </div>
         <div className="form-group col-sm-2">
           <input className="form-control" type="text" placeholder="energy" ref="unitEnergy" value={food.unitEnergy} onChange={this.energyChanged} />
@@ -30,23 +51,7 @@ var Food = React.createClass({
           <input className="form-control" type="text" placeholder="quantity" ref="quantity" value={food.quantity} onChange={this.quantityChanged} />
         </div>
         <div className="col-sm-1">
-          <div className="btn-group">
-            <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span className="glyphicon glyphicon-menu-hamburger" />
-            </button>
-            <ul className="dropdown-menu">
-              <li>
-                <a className="glyphicon glyphicon-fire" onClick={this.convertClicked} />
-              </li>
-              <li>
-                <a className="glyphicon glyphicon-list-alt" />
-              </li>
-              <li role="separator" className="divider"></li>
-              <li onClick={this.removeClicked}>
-                <a className="glyphicon glyphicon-remove" />
-              </li>
-            </ul>
-          </div>
+          {menu}
         </div>
       </div>
     );

@@ -84,7 +84,9 @@ var DailyEntry = React.createClass({
         </div>
         </div>
         </div>
-        <FoodsTable value={this.state.foods} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
+        <FoodsTable name="Breakfast" value={this.state.foods} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
+        <FoodsTable name="Lunch" value={[]} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
+        <FoodsTable name="Dinner" value={[]} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
       </div>
     );
   },

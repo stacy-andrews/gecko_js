@@ -5,15 +5,16 @@ var ReactPropTypes = React.PropTypes;
 var _ = require("lodash");
 
 var energyCalculator = require("../libs/energyCalculator");
-var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
 var Food = require("./Food.react");
+var FavouritesMenu = require("./FavouritesMenu.react");
 var foodBuilder = require("../libs/foodBuilder");
 
 var FoodsTable = React.createClass({
 
   propTypes: {
     value: ReactPropTypes.array.isRequired,
-    onChange: ReactPropTypes.func.isRequired
+    onChange: ReactPropTypes.func.isRequired,
+    name: ReactPropTypes.string.isRequired
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -54,39 +55,12 @@ var FoodsTable = React.createClass({
           {rows}
           <div className="btn-toolbar">
             <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
-            <div className="btn-group">
-              <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span className="glyphicon glyphicon-menu-hamburger" />
-              </button>
-              <ul className="dropdown-menu">
-                <li>
-                  <a onClick={this.breakfastClicked} style={{ "cursor": "pointer" }}>Breakfast</a>
-                </li>
-                <li>
-                  <a onClick={this.lunchClicked}>Lunch</a>
-                </li>
-                <li>
-                  <a onClick={this.dinnerClicked}>Dinner</a>
-                </li>
-              </ul>
-            </div>
+            <FavouritesMenu />
             {energyCalculator.calculateFoods(foods)}
           </div>
         </div>
       </div>
     );
-  },
-
-  breakfastClicked: function() {
-    DailyEntryActionCreators.favourites("breakfast");
-  },
-
-  lunchClicked: function() {
-    DailyEntryActionCreators.favourites("lunch");
-  },
-
-  dinnerClicked: function() {
-    DailyEntryActionCreators.favourites("dinner");
   },
 
   newFood: function() {
