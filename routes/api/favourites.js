@@ -59,7 +59,7 @@ var favourties = {
     },
     {
       description: "mini bites",
-      unitEnergy: 271,
+      unitEnergy: 351,
       quantity: 4,
       section: "dinner"
     },

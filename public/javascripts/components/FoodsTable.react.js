@@ -8,6 +8,7 @@ var energyCalculator = require("../libs/energyCalculator");
 var Food = require("./Food.react");
 var FavouritesMenu = require("./FavouritesMenu.react");
 var foodBuilder = require("../libs/foodBuilder");
+var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
 
 var FoodsTable = React.createClass({
 
@@ -64,10 +65,15 @@ var FoodsTable = React.createClass({
           <div className="btn-toolbar">
             <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
             <FavouritesMenu />
+            <button className="btn btn-default" onClick={this.favouriteClicked}>{sectionName}</button>
           </div>
         </div>
       </div>
     );
+  },
+
+  favouriteClicked: function() {
+    DailyEntryActionCreators.favourites(this.props.name.toLowerCase());
   },
 
   newFood: function() {
