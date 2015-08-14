@@ -106,7 +106,8 @@ var Food = React.createClass({
       time: this.getValue("time"),
       description: this.getValue("description"),
       unitEnergy: this.getValue("unitEnergy"),
-      quantity: this.getValue("quantity")
+      quantity: this.getValue("quantity"),
+      section: this.this.props.value.section
     };
 
     override(value);

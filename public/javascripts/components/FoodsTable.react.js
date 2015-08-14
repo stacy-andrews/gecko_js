@@ -24,19 +24,27 @@ var FoodsTable = React.createClass({
   },
 
   render: function() {
-    var rows = [];
-    var foods = this.props.value;
+    var that = this;
 
-    for (var i = 0; i < foods.length; i++) {
-      if (foods[i]._id) {
-        foods[i].key = foods[i]._id;
+    var foods = _.filter(this.props.value, function(f) { return f.section === that.props.name.toLowerCase(); });
+
+    var rows = _.map(foods, function(f) {
+      if (f._id) {
+        f.key = f._id;
       }
 
-      rows.push(<Food key={foods[i].key} value={foods[i]} onRemove={this.removeFood} onChange={this.changeFood} />);
-    }
+      return (
+        <Food key={f.key} value={f} onRemove={that.removeFood} onChange={that.changeFood} />
+      );
+    });
+
+    var sectionName = this.props.name;
 
     return (
       <div className="panel panel-default">
+        <div className="panel-heading">
+          {sectionName} ({energyCalculator.calculateFoods(foods)})
+        </div>
         <div className="panel-body">
           <div className="row">
             <label className="control-label col-sm-3">
@@ -56,7 +64,6 @@ var FoodsTable = React.createClass({
           <div className="btn-toolbar">
             <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
             <FavouritesMenu />
-            {energyCalculator.calculateFoods(foods)}
           </div>
         </div>
       </div>
@@ -66,7 +73,9 @@ var FoodsTable = React.createClass({
   newFood: function() {
     var foods = this.props.value;
 
-    foods.push(foodBuilder.build({}));
+    foods.push(foodBuilder.build({
+      section: this.props.name.toLowerCase()
+    }));
 
     this.props.onChange(foods);
   },

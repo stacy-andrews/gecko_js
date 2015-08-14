@@ -20,7 +20,8 @@ module.exports = {
       time: getCurrentTime(),
       description: foodSettings.description,
       unitEnergy: foodSettings.unitEnergy,
-      quantity: foodSettings.quantity
+      quantity: foodSettings.quantity,
+      section: foodSettings.section
     };
   }
 
