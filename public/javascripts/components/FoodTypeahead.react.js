@@ -3,6 +3,9 @@
 var React = require("react");
 var ReactPropTypes = React.PropTypes;
 
+var $ = require("jquery");
+var Bloodhound = require("Bloodhound");
+
 var SearchBox = React.createClass({
   propTypes: {
     value: ReactPropTypes.string.isRequired,
@@ -14,7 +17,6 @@ var SearchBox = React.createClass({
     var foodCatalogue = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.obj.whitespace("value"),
       queryTokenizer: Bloodhound.tokenizers.whitespace,
-      //prefetch: "../data/films/post_1960.json",
       remote: {
         url: "api/foods?q=%QUERY",
         wildcard: "%QUERY"

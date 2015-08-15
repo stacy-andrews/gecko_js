@@ -1,13 +1,14 @@
 "use strict";
 
 var request = require("superagent");
-var moment = require("moment");
 
 var DailyEntryServerActionCreators = require("../actions/DailyEntryServerActionCreators");
 
 function fetch(date) {
   request("api/diaryEntries/" + date.format("YYYY-MM-DD"))
     .end(function(err, res) {
+      if(err) { DailyEntryServerActionCreators.receiveNotFoundEntry(date); }
+
       if (res.ok) {
         DailyEntryServerActionCreators.receiveEntry(res.body);
       } else {
@@ -31,9 +32,7 @@ function save(entry, date) {
     .send(entry)
     .set("Accept", "application/json")
     .end(function(err, res){
-      if(err) {
-        
-      }
+      if(err) { console.log("Oh no! error " + res.text); }
 
       if (res.ok) {
         DailyEntryServerActionCreators.receiveCreatedEntry(res.body);
@@ -43,10 +42,7 @@ function save(entry, date) {
    });
 }
 
-
-var Options = {
+module.exports = {
   get: fetch,
   save: save
 };
-
-module.exports = Options;

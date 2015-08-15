@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-var Router = require('react-router');
-var routes = require('./routes');
+var Router = require("react-router");
+var routes = require("./routes");
 
 var router;
 

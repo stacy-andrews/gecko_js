@@ -3,7 +3,6 @@
 var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
-var _ = require("lodash");
 var energyCalculator = require("../libs/energyCalculator");
 var foodBuilder = require("../libs/foodBuilder");
 

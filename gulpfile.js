@@ -7,11 +7,13 @@ var source = require("vinyl-source-stream");
 var eslint = require("gulp-eslint");
 var uglify = require("gulp-uglify");
 var buffer = require("vinyl-buffer");
+var babel = require("babelify");
 
 var options = {
   files: [
     "./public/javascripts/**/*.js",
-    "!./public/javascripts/bundle.js"
+    "!./public/javascripts/bundle.js",
+    "!./public/javascripts/vendor/*.js"
   ]
 };
 
@@ -21,6 +23,7 @@ gulp.task("js", function() {
               paths: ["./public/javascripts/"],
               debug: true
             })
+    .transform(babel)
     .transform(reactify)
     .bundle()
     .on("error", function(err){ console.log(err.message); })

@@ -1,7 +1,6 @@
 "use strict";
 
 var React = require("react");
-var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
 
 var ReactPropTypes = React.PropTypes;
 var navigator = require("../libs/navigator");
@@ -27,7 +26,7 @@ var Header = React.createClass({
       <div className="panel panel-default">
         <div className="panel-body">
 
-          <div className="btn-toolbar">
+          <div className="btn-toolbar pull-left">
             <div className="btn-group">
             <a className="btn btn-info" href={nav.previousUrl()}>
               <span className="glyphicon glyphicon-chevron-left"></span>
@@ -40,6 +39,8 @@ var Header = React.createClass({
               {loading}
               <span>Save</span>
             </button>
+          </div>
+          <div className="pull-right">
             {this.props.energy}
           </div>
         </div>
