@@ -50,7 +50,7 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
         eveningExercise: entry.exercises[1],
         entry: entry,
         foods: entry.foods,
-        id: entry._id,
+        id: entry.id,
         energy: energyCalculator.calculate(entry)
     };
   }
@@ -82,6 +82,7 @@ AppDispatcher.register(function(action) {
       }
 
       YPetVetStore.emitChange();
+
       break;
     case "dailyEntry_save_completed":
       isLoading = false;

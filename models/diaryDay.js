@@ -1,3 +1,5 @@
+"use strict";
+
 var mongoose = require("mongoose");
 
 var diaryDaySchema = new mongoose.Schema({
@@ -30,5 +32,11 @@ var diaryDaySchema = new mongoose.Schema({
     }
   ]
 });
+
+diaryDaySchema.virtual("id").get(function(){
+    return this._id.toHexString();
+});
+
+diaryDaySchema.set("toJSON", { virtuals: true });
 
 module.exports = mongoose.model("DiaryDay", diaryDaySchema);

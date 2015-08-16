@@ -9,6 +9,18 @@ var Food = require("./Food.react");
 var foodBuilder = require("../libs/foodBuilder");
 var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
 
+function getRows(foods, that) {
+  return _.map(foods, function(f) {
+      if (!f.key) {
+        f.key = foodBuilder.generateKey();
+      }
+
+      return (
+        <Food key={f.key} value={f} onRemove={that.removeFood} onChange={that.changeFood} />
+      );
+    });
+}
+
 var FoodsTable = React.createClass({
 
   propTypes: {
@@ -19,7 +31,7 @@ var FoodsTable = React.createClass({
 
   componentWillReceiveProps: function(newProps) {
     for (var i = newProps.length - 1; i >= 0; i--) {
-      newProps[i].key = newProps[i]._id;
+      newProps[i].key = foodBuilder.generateKey();
     }
   },
 
@@ -28,15 +40,7 @@ var FoodsTable = React.createClass({
 
     var foods = _.filter(this.props.value, function(f) { return f.section === that.props.name.toLowerCase(); });
 
-    var rows = _.map(foods, function(f) {
-      if (f._id) {
-        f.key = f._id;
-      }
-
-      return (
-        <Food key={f.key} value={f} onRemove={that.removeFood} onChange={that.changeFood} />
-      );
-    });
+    var rows = getRows(foods, this);
 
     var sectionName = this.props.name;
 

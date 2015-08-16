@@ -2,14 +2,20 @@
 
 var _ = require("lodash");
 
-function getFooodEnergy(foods) {
+function getFoodEnergy(foods) {
   var energy = _.map(foods, function(f) {
     return f.unitEnergy * f.quantity;
   });
 
-  return _.reduce(energy, function(total, e) {
+  var totalEnergy = _.reduce(energy, function(total, e) {
     return total + e;
   });
+
+  if(!totalEnergy) {
+    return 0;
+  }
+
+  return totalEnergy;
 }
 
 function getExerciseEnergy(exercises) {
@@ -17,13 +23,39 @@ function getExerciseEnergy(exercises) {
          exercises[1].energy;
 }
 
+function getDayEnergyRequirements() {
+  return 2500 + 8125;
+}
+
+function getStatus(diff) {
+  if (diff < -2000) {
+    return "good";
+  }
+
+  if (diff >= -1000 && diff <= 1000) {
+    return "neutral";
+  }
+
+  return "bad";
+}
+
 function getEnergy(entry) {
-  return getFooodEnergy(entry.foods) -
-          (2500 + 8125 +
+  var requirements = getDayEnergyRequirements();
+  var food = getFoodEnergy(entry.foods);
+  var diff = food -
+          (requirements +
           getExerciseEnergy(entry.exercises));
+  var status = getStatus(diff);
+
+  return {
+    diff: diff,
+    requirements: requirements,
+    food: food,
+    status: status
+  };
 }
 
 module.exports = {
   calculate: getEnergy,
-  calculateFoods: getFooodEnergy
+  calculateFoods: getFoodEnergy
 };

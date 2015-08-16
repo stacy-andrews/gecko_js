@@ -5,13 +5,15 @@ var React = require("react");
 var ReactPropTypes = React.PropTypes;
 var navigator = require("../libs/navigator");
 
+var EnergySummary = require("./EnergySummary.react");
+
 var Header = React.createClass({
 
   propTypes: {
     isLoading: ReactPropTypes.bool.isRequired,
     onSave: ReactPropTypes.func.isRequired,
     params: ReactPropTypes.object.isRequired,
-    energy: ReactPropTypes.number.isRequired
+    energy: ReactPropTypes.object.isRequired
   },
 
   render: function() {
@@ -41,7 +43,7 @@ var Header = React.createClass({
             </button>
           </div>
           <div className="pull-right">
-            {this.props.energy}
+            <EnergySummary energy={this.props.energy} />
           </div>
         </div>
       </div>

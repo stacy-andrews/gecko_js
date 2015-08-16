@@ -23,6 +23,8 @@ module.exports = {
       quantity: foodSettings.quantity,
       section: foodSettings.section
     };
-  }
+  },
+
+  generateKey: generateKey
 
 };
