@@ -6,6 +6,8 @@ var DailyEntryStore = require("../stores/DailyEntryStore");
 var Header = require("./Header.react.js");
 var Exercise = require("./Exercise.react.js");
 var FoodsTable = require("./FoodsTable.react.js");
+var Measurements = require("./Measurements.react.js");
+
 var ReactPropTypes = React.PropTypes;
 var moment = require("moment");
 var energyCalculator = require("../libs/energyCalculator");
@@ -87,6 +89,7 @@ var DailyEntry = React.createClass({
         <FoodsTable name="Breakfast" value={this.state.foods} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
         <FoodsTable name="Lunch" value={this.state.foods} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
         <FoodsTable name="Dinner" value={this.state.foods} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
+        <Measurements value={this.state.measurements} onChange={this.measurementsChanged} />
       </div>
     );
   },
@@ -115,6 +118,12 @@ var DailyEntry = React.createClass({
     });
   },
 
+  measurementsChanged: function(value) {
+    this.setState({
+      measurements: value
+    });
+  },
+
   getCurrentDate: function(params) {
     var date = moment();
 
@@ -136,7 +145,8 @@ var DailyEntry = React.createClass({
         this.state.morningExercise,
         this.state.eveningExercise
       ],
-      foods: this.state.foods
+      foods: this.state.foods,
+      measurements: this.state.measurements
     },
     this.getCurrentDate(this.props.params));
   }

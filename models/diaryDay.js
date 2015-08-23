@@ -24,13 +24,12 @@ var diaryDaySchema = new mongoose.Schema({
     section: String
   }
   ],
-  measurements: [
+  measurements:
     {
       chest: Number,
       stomach: Number,
       thigh: Number
     }
-  ]
 });
 
 diaryDaySchema.virtual("id").get(function(){

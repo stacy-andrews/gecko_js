@@ -13,7 +13,12 @@ var basicEntry = {
     { energy: "", time: "", duration: "" },
     { energy: "", time: "", duration: "" }
   ],
-  foods: []
+  foods: [],
+  measurements: {
+    chest: 0,
+    stomach: 0,
+    thigh: 0
+  }
 };
 
 function clone() {
@@ -51,7 +56,8 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
         entry: entry,
         foods: entry.foods,
         id: entry.id,
-        energy: energyCalculator.calculate(entry)
+        energy: energyCalculator.calculate(entry),
+        measurements: entry.measurements
     };
   }
 });

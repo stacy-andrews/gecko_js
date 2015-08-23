@@ -75,6 +75,7 @@ router.put("/:date", function(req, res, next) {
 
     entry.exercises = req.body.exercises;
     entry.foods = req.body.foods;
+    entry.measurements = req.body.measurements;
 
     entry.save(function (saveErr, savedEntry) {
       if (saveErr) {
