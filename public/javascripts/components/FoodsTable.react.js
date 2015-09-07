@@ -3,6 +3,7 @@
 var React = require("react");
 var ReactPropTypes = React.PropTypes;
 var _ = require("lodash");
+var CollapsibleMixin = require("react-collapsible-mixin");
 
 var energyCalculator = require("../libs/energyCalculator");
 var Food = require("./Food.react");
@@ -22,6 +23,7 @@ function getRows(foods, that) {
 }
 
 var FoodsTable = React.createClass({
+  mixins: [CollapsibleMixin],
 
   propTypes: {
     value: ReactPropTypes.array.isRequired,
@@ -44,32 +46,40 @@ var FoodsTable = React.createClass({
 
     var sectionName = this.props.name;
 
+    var collapsible = "collapsible-content-1";
+
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          {sectionName} ({energyCalculator.calculateFoods(foods)})
+          <a href={"#" + collapsible}
+             className={this.getCollapserClassSet(collapsible)}
+             onClick={this._onToggleCollapsible}>
+            {sectionName} ({energyCalculator.calculateFoods(foods)})
+          </a>
         </div>
-        <div className="panel-body">
-          <div className="row">
-            <label className="control-label col-sm-3">
-              Time
-            </label>
-            <label className="control-label col-sm-3">
-              Food
-            </label>
-            <label className="control-label col-sm-2">
-              Energy
-            </label>
-            <label className="control-label col-sm-2">
-              Quantity
-            </label>
+          <div ref={collapsible} className={this.getCollapsibleClassSet(collapsible)}>
+          <div className="panel-body" >
+            <div className="row">
+              <label className="control-label col-sm-3">
+                Time
+              </label>
+              <label className="control-label col-sm-3">
+                Food
+              </label>
+              <label className="control-label col-sm-2">
+                Energy
+              </label>
+              <label className="control-label col-sm-2">
+                Quantity
+              </label>
+            </div>
+            {rows}
+            <div className="btn-toolbar">
+              <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
+              <button className="btn btn-default" onClick={this.favouriteClicked}>{sectionName}</button>
+            </div>
           </div>
-          {rows}
-          <div className="btn-toolbar">
-            <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
-            <button className="btn btn-default" onClick={this.favouriteClicked}>{sectionName}</button>
           </div>
-        </div>
       </div>
     );
   },
