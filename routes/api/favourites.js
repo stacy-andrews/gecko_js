@@ -6,9 +6,9 @@ var router = express.Router();
 var favourties = {
   breakfast: [
     {
-      description: "coco pops",
-      unitEnergy: 480,
-      quantity: 4,
+      description: "weet bix",
+      unitEnergy: 474,
+      quantity: 3,
       section: "breakfast"
     },
     {

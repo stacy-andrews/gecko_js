@@ -32,7 +32,7 @@ function getStatus(diff) {
     return "good";
   }
 
-  if (diff >= -1000 && diff <= 1000) {
+  if (diff >= -2000 && diff <= 2000) {
     return "neutral";
   }
 
