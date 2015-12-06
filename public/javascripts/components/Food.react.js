@@ -3,9 +3,9 @@
 var React = require("react");
 var ReactPropTypes = React.PropTypes;
 var FoodTypeAhead = require("./FoodTypeahead.react");
+var FoodMenu = require("./FoodMenu.react");
 
 var Food = React.createClass({
-
   propTypes: {
     onRemove: ReactPropTypes.func.isRequired,
     value: ReactPropTypes.object.isRequired,
@@ -14,27 +14,6 @@ var Food = React.createClass({
 
   render: function() {
     var food = this.props.value;
-    var iosHack = { "cursor": "pointer" };
-
-    var menu = (
-      <div className="btn-group">
-        <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span className="glyphicon glyphicon-menu-hamburger" />
-        </button>
-        <ul className="dropdown-menu">
-          <li>
-            <a className="glyphicon glyphicon-fire" style={iosHack} onClick={this.convertClicked} />
-          </li>
-          <li>
-            <a className="glyphicon glyphicon-list-alt" />
-          </li>
-          <li role="separator" className="divider"></li>
-          <li >
-            <a className="glyphicon glyphicon-remove" style={iosHack} onClick={this.removeClicked} />
-          </li>
-        </ul>
-      </div>
-    );
 
     return (
       <div className="row">
@@ -51,7 +30,7 @@ var Food = React.createClass({
           <input className="form-control" type="text" placeholder="quantity" ref="quantity" value={food.quantity} onChange={this.quantityChanged} />
         </div>
         <div className="col-sm-1">
-          {menu}
+          <FoodMenu />
         </div>
       </div>
     );
