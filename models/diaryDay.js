@@ -17,9 +17,11 @@ var diaryDaySchema = new mongoose.Schema({
     time: String,
     unitEnergy: Number,
     quantity: Number,
-    carbohydrate: Number,
-    fat: Number,
-    protein: Number,
+    nutrition: {
+      carbohydrate: Number,
+      fat: Number,
+      protein: Number
+    },
     description: String,
     section: String
   }

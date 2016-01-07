@@ -21,6 +21,7 @@ module.exports = {
       description: foodSettings.description,
       unitEnergy: foodSettings.unitEnergy,
       quantity: foodSettings.quantity,
+      nutrition: foodSettings.nutrition,
       section: foodSettings.section
     };
   },

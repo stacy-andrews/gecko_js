@@ -2,13 +2,10 @@
 
 var React = require("react");
 var ReactPropTypes = React.PropTypes;
-var Modal = require("simple-react-modal");
 
 var FoodMenu = React.createClass({
-  getInitialState: function() {
-    return {
-      show: false
-    };
+  propTypes: {
+    onAttributesSelected: ReactPropTypes.func.isRequired
   },
 
   render: function() {
@@ -19,27 +16,12 @@ var FoodMenu = React.createClass({
         <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span className="glyphicon glyphicon-menu-hamburger" />
         </button>
-        <Modal.default show={this.state.show} containerStyle={{ width: "600px" }} closeOnOuterClick={true} onClose={this.closeAttributes}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <button type="button" className="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 className="modal-title">Modal title</h4>
-            </div>
-            <div className="modal-body">
-              <p>One fine body&hellip;</p>
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-default">Close</button>
-              <button type="button" className="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </Modal.default>
         <ul className="dropdown-menu">
           <li>
             <a className="glyphicon glyphicon-fire" style={iosHack} onClick={this.convertClicked} />
           </li>
           <li>
-            <a className="glyphicon glyphicon-list-alt" style={iosHack} onClick={this.attributesClicked} />
+            <a className="glyphicon glyphicon-list-alt" style={iosHack} onClick={this.props.onAttributesSelected} />
           </li>
           <li role="separator" className="divider"></li>
           <li >
@@ -50,19 +32,8 @@ var FoodMenu = React.createClass({
     );
   },
 
-  closeAttributes: function() {
-    this.setState({show: false});
-  },
-
   attributesClicked: function() {
     this.setState({show: true});
-  },
-
-  foodTypeAheadOptionSelected: function(food) {
-    this.processChange(function(a) {
-      a.unitEnergy = food.unitEnergy;
-      a.description = food.description;
-    });
   },
 
   convertClicked: function() {

@@ -4,12 +4,19 @@ var React = require("react");
 var ReactPropTypes = React.PropTypes;
 var FoodTypeAhead = require("./FoodTypeahead.react");
 var FoodMenu = require("./FoodMenu.react");
+var NutritionInformation = require("./NutritionInformation.react");
 
 var Food = React.createClass({
   propTypes: {
     onRemove: ReactPropTypes.func.isRequired,
     value: ReactPropTypes.object.isRequired,
     onChange: ReactPropTypes.func.isRequired
+  },
+
+  getInitialState: function() {
+    return {
+      show: false
+    };
   },
 
   render: function() {
@@ -30,10 +37,29 @@ var Food = React.createClass({
           <input className="form-control" type="text" placeholder="quantity" ref="quantity" value={food.quantity} onChange={this.quantityChanged} />
         </div>
         <div className="col-sm-1">
-          <FoodMenu />
+          <FoodMenu onAttributesSelected={this.attributesSelected} />
+          <NutritionInformation
+            show={this.state.show}
+            value={food.nutrition}
+            onChange={this.nutritionInformationChanged}
+            onClose={this.closeAttributes} />
         </div>
       </div>
     );
+  },
+
+  attributesSelected: function() {
+    this.setState({show: true});
+  },
+
+  closeAttributes: function() {
+    this.setState({show: false});
+  },
+
+  nutritionInformationChanged: function(newValue) {
+    this.processChange(function(a) {
+      a.nutrition = newValue;
+    });
   },
 
   foodTypeAheadOptionSelected: function(food) {
@@ -86,6 +112,7 @@ var Food = React.createClass({
       description: this.getValue("description"),
       unitEnergy: this.getValue("unitEnergy"),
       quantity: this.getValue("quantity"),
+      nutrition: this.props.nutrition,
       section: this.props.value.section
     };
 

@@ -9,19 +9,34 @@ var favourties = {
       description: "weet bix",
       unitEnergy: 474,
       quantity: 3,
-      section: "breakfast"
+      section: "breakfast",
+      nutrition: {
+        carbohydrate: 20.9,
+        fat: 1.1,
+        protein: 3.7
+      }
     },
     {
-      description: "rice milk",
-      unitEnergy: 522,
+      description: "almond milk",
+      unitEnergy: 318,
       quantity: 1,
-      section: "breakfast"
+      section: "breakfast",
+      nutrition: {
+        carbohydrate: 7,
+        fat: 4.5,
+        protein: 1.8
+      }
     },
     {
-      description: "coffee (rice milk)",
-      unitEnergy: 522,
+      description: "coffee (almond milk)",
+      unitEnergy: 318,
       quantity: 1,
-      section: "breakfast"
+      section: "breakfast",
+      nutrition: {
+        carbohydrate: 7,
+        fat: 4.5,
+        protein: 1.8
+      }
     }
   ],
   lunch: [
