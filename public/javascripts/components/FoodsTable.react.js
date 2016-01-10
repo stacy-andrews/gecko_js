@@ -92,7 +92,8 @@ var FoodsTable = React.createClass({
     var foods = this.props.value;
 
     foods.push(foodBuilder.build({
-      section: this.props.name.toLowerCase()
+      section: this.props.name.toLowerCase(),
+      nutrition: {}
     }));
 
     this.props.onChange(foods);

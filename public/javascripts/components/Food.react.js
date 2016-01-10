@@ -37,7 +37,7 @@ var Food = React.createClass({
           <input className="form-control" type="text" placeholder="quantity" ref="quantity" value={food.quantity} onChange={this.quantityChanged} />
         </div>
         <div className="col-sm-1">
-          <FoodMenu onAttributesSelected={this.attributesSelected} />
+          <FoodMenu onAttributesSelected={this.attributesSelected} onRemove={this.removeClicked} />
           <NutritionInformation
             show={this.state.show}
             value={food.nutrition}
@@ -66,6 +66,7 @@ var Food = React.createClass({
     this.processChange(function(a) {
       a.unitEnergy = food.unitEnergy;
       a.description = food.description;
+      a.nutrition = food.nutrition;
     });
   },
 

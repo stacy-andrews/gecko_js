@@ -3,9 +3,11 @@ var mongoose = require("mongoose");
 var catalogueFoodSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
   unitEnergy: Number,
-  carbohydrate: Number,
-  fat: Number,
-  protein: Number,
+  nutrition: {
+    carbohydrate: Number,
+    fat: Number,
+    protein: Number
+  },
   description: String
 });
 

@@ -5,7 +5,8 @@ var ReactPropTypes = React.PropTypes;
 
 var FoodMenu = React.createClass({
   propTypes: {
-    onAttributesSelected: ReactPropTypes.func.isRequired
+    onAttributesSelected: ReactPropTypes.func.isRequired,
+    onRemove: ReactPropTypes.func.isRequired
   },
 
   render: function() {
@@ -25,7 +26,7 @@ var FoodMenu = React.createClass({
           </li>
           <li role="separator" className="divider"></li>
           <li >
-            <a className="glyphicon glyphicon-remove" style={iosHack} onClick={this.removeClicked} />
+            <a className="glyphicon glyphicon-remove" style={iosHack} onClick={this.props.onRemove} />
           </li>
         </ul>
       </div>
