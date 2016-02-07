@@ -113,7 +113,7 @@ var Food = React.createClass({
       description: this.getValue("description"),
       unitEnergy: this.getValue("unitEnergy"),
       quantity: this.getValue("quantity"),
-      nutrition: this.props.nutrition,
+      nutrition: this.props.value.nutrition,
       section: this.props.value.section
     };
 
