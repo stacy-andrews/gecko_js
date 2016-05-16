@@ -1,10 +1,10 @@
 "use strict";
 
 var React = require("react");
-var router = require("routing/router");
-
-router.run(function (Handler, state) {
-  React.render(React.createElement(Handler, { params: state.params }), document.getElementById("container"));
-});
+var router = require("routing/routes");
+var ReactDOM = require("react-dom");
+// router.run(function (Handler, state) {
+  ReactDOM.render(router, document.getElementById("container"));
+// });
 
 window.React = React;

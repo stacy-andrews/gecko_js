@@ -28,7 +28,7 @@ function saveFood(food) {
   var catalogueFood = new CatalogueFood(food);
 
   var upsertData = catalogueFood.toObject();
-  delete upsertData._id;
+  delete upsertData._id;  // no-underscore-dangle
 
   CatalogueFood
     .update({ description: upsertData.description },

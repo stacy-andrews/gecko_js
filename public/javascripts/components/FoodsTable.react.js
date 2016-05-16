@@ -23,7 +23,6 @@ function getRows(foods, that) {
 }
 
 var FoodsTable = React.createClass({
-  mixins: [CollapsibleMixin],
 
   propTypes: {
     value: ReactPropTypes.array.isRequired,
@@ -51,13 +50,8 @@ var FoodsTable = React.createClass({
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <a href={"#" + collapsible}
-             className={this.getCollapserClassSet(collapsible)}
-             onClick={this._onToggleCollapsible}>
-            {sectionName} ({energyCalculator.calculateFoods(foods)})
-          </a>
+          {sectionName} ({energyCalculator.calculateFoods(foods)})
         </div>
-          <div ref={collapsible} className={this.getCollapsibleClassSet(collapsible)}>
           <div className="panel-body" >
             <div className="row">
               <label className="control-label col-sm-3">
@@ -78,7 +72,6 @@ var FoodsTable = React.createClass({
               <button className="btn btn-info" onClick={this.newFood}><span className="glyphicon glyphicon-plus"></span></button>
               <button className="btn btn-default" onClick={this.favouriteClicked}>{sectionName}</button>
             </div>
-          </div>
           </div>
       </div>
     );
