@@ -6,6 +6,7 @@ var ReactPropTypes = React.PropTypes;
 var navigator = require("../libs/navigator");
 
 var EnergySummary = require("./EnergySummary.react");
+var NutritionSummary = require("./NutritionSummary.react");
 
 var Header = React.createClass({
 
@@ -13,7 +14,8 @@ var Header = React.createClass({
     isLoading: ReactPropTypes.bool.isRequired,
     onSave: ReactPropTypes.func.isRequired,
     params: ReactPropTypes.object.isRequired,
-    energy: ReactPropTypes.object.isRequired
+    energy: ReactPropTypes.object.isRequired,
+    nutrition: ReactPropTypes.object.isRequired
   },
 
   render: function() {
@@ -41,6 +43,9 @@ var Header = React.createClass({
               {loading}
               <span>Save</span>
             </button>
+          </div>
+          <div className="pull-right">
+            <NutritionSummary nutrition={this.props.nutrition} />
           </div>
           <div className="pull-right">
             <EnergySummary energy={this.props.energy} />

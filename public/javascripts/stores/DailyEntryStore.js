@@ -4,6 +4,7 @@ var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
 var EventEmitter = require("events").EventEmitter;
 var assign = require("object-assign");
 var energyCalculator = require("../libs/energyCalculator");
+var nutritionCalculator = require("../libs/nutritionCalculator");
 var foodBuilder = require("../libs/foodBuilder");
 
 var isLoading = false;
@@ -57,6 +58,7 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
         foods: entry.foods,
         id: entry.id,
         energy: energyCalculator.calculate(entry),
+        nutrition: nutritionCalculator.getNutritionTotals(entry),
         measurements: entry.measurements
     };
   }

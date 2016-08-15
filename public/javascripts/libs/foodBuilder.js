@@ -16,6 +16,7 @@ module.exports = {
 
   build: function(foodSettings) {
     return {
+      value: "",
       key: generateKey(),
       time: getCurrentTime(),
       description: foodSettings.description,

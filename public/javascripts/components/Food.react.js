@@ -109,10 +109,10 @@ var Food = React.createClass({
   getChangeValue: function(override) {
     var value = {
       key: this.props.value.key,
-      time: this.getValue("time"),
-      description: this.getValue("description"),
-      unitEnergy: this.getValue("unitEnergy"),
-      quantity: this.getValue("quantity"),
+      time: this.refs["time"].value,
+      description: this.refs["description"].props.value,
+      unitEnergy: this.refs["unitEnergy"].value,
+      quantity: this.refs["quantity"].value,
       nutrition: this.props.value.nutrition,
       section: this.props.value.section
     };

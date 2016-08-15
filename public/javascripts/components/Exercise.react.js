@@ -70,7 +70,7 @@ var Exercise = React.createClass({
   },
 
   getValue: function(refName) {
-    return this.refs[refName].props.value;
+    return this.refs[refName].value;
   },
 
   getChangeValue: function(override) {

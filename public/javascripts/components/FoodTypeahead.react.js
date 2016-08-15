@@ -1,6 +1,8 @@
 "use strict";
 
 var React = require("react");
+var ReactDOM = require("react-dom");
+
 var ReactPropTypes = React.PropTypes;
 
 var $ = require("jquery");
@@ -23,7 +25,7 @@ var SearchBox = React.createClass({
       }
     });
 
-    var element = this.getDOMNode();
+    var element = ReactDOM.findDOMNode(this);
     $(element).typeahead({
       minLength: 1,
       highlight: true,
@@ -44,7 +46,7 @@ var SearchBox = React.createClass({
   },
 
   componentWillUnmount: function(){
-    var element = this.getDOMNode();
+    var element = ReactDOM.findDOMNode(this);
     $(element).typeahead("destroy");
   },
 
