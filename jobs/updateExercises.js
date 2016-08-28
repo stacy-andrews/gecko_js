@@ -7,22 +7,27 @@ var Entry = require("../models/diaryDay");
 var entriesService = require("../models/entriesService");
 
 function updateDailyEntry(exercise) {
-  var startDate = moment(exercise.start_date);
+  return new Promise(function(resolve, reject) {
+    var d = moment(moment(exercise.start_date).format("YYYY-MM-DD"));
 
-  // entriesService.get(moment()).then(function(entry) {
-
-  // });
-
-  console.log(startDate);
+    entriesService.get(d)
+      .then(function(entry) {
+        console.log(entry);
+        resolve();
+      })
+      .catch(function(err) {
+        reject(err);
+      });
+  });
 }
 
 mongoInitialiser();
 
 getExercises()
   .then(function(items) {
-    items.forEach(function(exercise) {
-      updateDailyEntry(exercise);
-    });
-
-    process.exit();
+    var updates = items.map(updateDailyEntry);
+    Promise.all(updates)
+        .then(function() {
+          process.exit();
+        });
   });
