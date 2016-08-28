@@ -1,10 +1,8 @@
-"use strict";
-
-var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
-var EventEmitter = require("events").EventEmitter;
+import AppDispatcher from "../dispatcher/YPetVetDispatcher";
+import  { EventEmitter }  from "events";
 var assign = require("object-assign");
 var energyCalculator = require("../libs/energyCalculator");
-var nutritionCalculator = require("../libs/nutritionCalculator");
+import nutritionCalculator from "../libs/nutritionCalculator";
 var foodBuilder = require("../libs/foodBuilder");
 
 var isLoading = false;

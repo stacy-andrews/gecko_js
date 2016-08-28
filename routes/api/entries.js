@@ -4,7 +4,7 @@ var express = require("express");
 var router = express.Router();
 
 var Entry = require("../../models/diaryDay.js");
-
+var entriesService = require("../../models/entriesService")
 var moment = require("moment");
 
 function build(message, status) {
@@ -19,20 +19,17 @@ router.get("/:date", function(req, res, next) {
     return next(build("Invalid date", 400));
   }
 
-  var query = Entry.findOne({ "date": { "$eq": today } });
+  entriesService.get(today)
+    .then(function(entry) {
+      if (!entry) {
+        return next(build("Not known", 404));
+      }
 
-  query.exec(function (err, entry) {
-    if (err) {
+      return res.json(entry);
+    })
+    .catch(function(err) {
       return next(err);
-    }
-
-    if (!entry) {
-      return next(build("Not known", 404));
-    }
-
-    return res.json(entry);
-  });
-
+    });
 });
 
 router.post("/:date", function(req, res, next) {
@@ -62,29 +59,24 @@ router.put("/:date", function(req, res, next) {
     return next(build("Invalid date", 400));
   }
 
-  var query = Entry.findOne({ "date": { "$eq": today } });
-
-  query.exec(function (err, entry) {
-    if (err) {
-      return next(build("Not known", 404));
-    }
-
-    if (!entry) {
-      return next(build("Not known", 404));
-    }
-
-    entry.exercises = req.body.exercises;
-    entry.foods = req.body.foods;
-    entry.measurements = req.body.measurements;
-
-    entry.save(function (saveErr, savedEntry) {
-      if (saveErr) {
-        return next(saveErr);
+  entriesService.get(today)
+    .then(function(entry) {
+      if (!entry) {
+        return next(build("Not known", 404));
       }
 
-      return res.json(savedEntry);
+      entriesService.update(entry, {
+        exercises: req.body.exercises,
+        foods: req.body.foods,
+        measurements: req.body.measurements
+      })
+      .then(function(savedEntry) {
+        return res.json(savedEntry);
+      });
+    })
+    .catch(function(err) {
+      return next(err);
     });
-  });
 });
 
 module.exports = router;

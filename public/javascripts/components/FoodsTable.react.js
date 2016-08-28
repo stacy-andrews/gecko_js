@@ -3,7 +3,6 @@
 var React = require("react");
 var ReactPropTypes = React.PropTypes;
 var _ = require("lodash");
-var CollapsibleMixin = require("react-collapsible-mixin");
 
 var energyCalculator = require("../libs/energyCalculator");
 var Food = require("./Food.react");
@@ -44,8 +43,6 @@ var FoodsTable = React.createClass({
     var rows = getRows(foods, this);
 
     var sectionName = this.props.name;
-
-    var collapsible = "collapsible-content-1";
 
     return (
       <div className="panel panel-default">

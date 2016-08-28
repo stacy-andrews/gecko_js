@@ -5,7 +5,7 @@ var Route = Router.Route;
 var Redirect = Router.Redirect;
 var RouterEx = Router.Router;
 var browserHistory = Router.hashHistory;
-var IndexRoute = Router.IndexRoute;
+var IndexRedirect = Router.IndexRedirect;
 
 var DailyEntry = require("components/DailyEntry.react");
 var App = require("components/App.react");
@@ -13,6 +13,7 @@ var App = require("components/App.react");
 var routes = (
   <RouterEx history={browserHistory}>
     <Route path="/" component={App}>
+      <IndexRedirect to="entry/" />
       <Route name="dailyEntry" path="entry/:year/:month/:day" component={DailyEntry} />
       <Route name="dailyEntryRoot" path="entry/" component={DailyEntry} />
     </Route>

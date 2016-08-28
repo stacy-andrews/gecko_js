@@ -66,7 +66,7 @@ var Food = React.createClass({
     this.processChange(function(a) {
       a.unitEnergy = food.unitEnergy;
       a.description = food.description;
-      a.nutrition = food.nutrition;
+      a.nutrition = food.nutrition ? food.nutrition: { carbohydrate: 0, protein: 0, fat:0 };
     });
   },
 

@@ -6,17 +6,12 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
-var routes = require("./routes/index");
-
-var diaryDays = require("./routes/api/entries");
-var foods = require("./routes/api/foods");
-var favourites = require("./routes/api/favourites");
-
+var routesInitialiser = require("./initialisers/routes");
 var mongoInitialiser = require("./initialisers/mongo");
 
 var app = express();
 
-mongoInitialiser.initialise();
+mongoInitialiser();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -28,10 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", routes);
-app.use("/api/diaryEntries/", diaryDays);
-app.use("/api/foods/", foods);
-app.use("/api/favourites/", favourites);
+routesInitialiser(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,8 +31,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace

@@ -70,7 +70,18 @@ var DailyEntry = React.createClass({
     return (
       <div>
         <Header params={this.props.params} energy={energy} isLoading={this.state.isLoading} nutrition={this.state.nutrition} onSave={this.save} />
-
+        <div className="panel panel-default">
+          <div className="panel-body">
+            <div className="row">
+              <div className="col-sm-6">
+                <Exercise value={this.state.morningExercise} onChange={this.morningExerciseChanged} />
+              </div>
+              <div className="col-sm-6">
+                <Exercise value={this.state.eveningExercise} onChange={this.eveningExerciseChanged} />
+              </div>
+            </div>
+          </div>
+        </div>
         <FoodsTable name="Breakfast" value={this.state.foods} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
         <FoodsTable name="Lunch" value={this.state.foods} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />
         <FoodsTable name="Dinner" value={this.state.foods} onChange={this.foodsChanged} onEnergyChange={this.foodEnergyChanged} />

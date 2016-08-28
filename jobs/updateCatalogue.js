@@ -1,11 +1,9 @@
-"use strict";
-
 var Entry = require("../models/diaryDay.js");
 var CatalogueFood = require("../models/catalogueFood.js");
-var initialiser = require("../initialisers/mongo");
+var mongoInitialiser = require("../initialisers/mongo");
 var q = require('q');
 
-initialiser.initialise();
+mongoInitialiser();
 
 function clearCatalogue() {
   var deferred = q.defer();

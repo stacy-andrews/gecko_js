@@ -33,11 +33,7 @@ gulp.task("js", function() {
 
 gulp.task("lint", function() {
   return gulp.src(options.files)
-        .pipe(eslint({
-            "globals": {
-              "require": true
-            }
-          }))
+        .pipe(eslint())
         .pipe(eslint.format())
         .pipe(eslint.failOnError());
 });

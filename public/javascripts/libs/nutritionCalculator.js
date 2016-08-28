@@ -1,15 +1,20 @@
-"use strict";
-
-var _ = require("lodash");
+import _ from "lodash";
+import { round } from "./decimals";
 
 function getNutrition(foods) {
-  return _.reduce(foods, function(total, e) {
+  var summary = _.reduce(foods, function(total, e) {
     return {
       fat: total.fat + e.nutrition.fat * e.quantity,
       carbohydrate: total.carbohydrate + e.nutrition.carbohydrate * e.quantity,
       protein: total.protein + e.nutrition.protein * e.quantity
     };
   }, { fat: 0, carbohydrate: 0, protein: 0 });
+
+  return {
+    fat: round(summary.fat, -1),
+    carbohydrate: round(summary.carbohydrate, -1),
+    protein: round(summary.protein, -1)
+  };
 }
 
 function getStatus(diff) {

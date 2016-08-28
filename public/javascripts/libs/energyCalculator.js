@@ -1,6 +1,5 @@
-"use strict";
-
-var _ = require("lodash");
+import _ from "lodash";
+import { round } from "./decimals";
 
 function getFoodEnergy(foods) {
   var energy = _.map(foods, function(f) {
@@ -48,9 +47,9 @@ function getEnergy(entry) {
   var status = getStatus(diff);
 
   return {
-    diff: diff,
-    requirements: requirements,
-    food: food,
+    diff: round(diff),
+    requirements: round(requirements),
+    food: round(food),
     status: status
   };
 }

@@ -1,14 +1,14 @@
 "use strict";
 
-var React = require("react");
+import React from "react";
 
-var ReactPropTypes = React.PropTypes;
+import { PropTypes } from "react";
 
 var Exercise = React.createClass({
 
   propTypes: {
-    value: ReactPropTypes.object.isRequired,
-    onChange: ReactPropTypes.func.isRequired
+    value: PropTypes.object.isRequired,
+    onChange: PropTypes.func.isRequired
   },
 
   render: function() {

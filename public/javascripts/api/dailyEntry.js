@@ -1,10 +1,8 @@
-"use strict";
+import request from "superagent";
 
-var request = require("superagent");
+import DailyEntryServerActionCreators from "../actions/DailyEntryServerActionCreators";
 
-var DailyEntryServerActionCreators = require("../actions/DailyEntryServerActionCreators");
-
-function fetch(date) {
+export function get(date) {
   request("api/diaryEntries/" + date.format("YYYY-MM-DD"))
     .end(function(err, res) {
       if(err) { DailyEntryServerActionCreators.receiveNotFoundEntry(date); }
@@ -27,22 +25,18 @@ function build(id, date) {
           .post("api/diaryEntries/" + date.format("YYYY-MM-DD"));
 }
 
-function save(entry, date) {
+export function save(entry, date) {
   build(entry.id, date)
     .send(entry)
     .set("Accept", "application/json")
     .end(function(err, res){
-      if(err) { console.log("Oh no! error " + res.text); }
+      if(err) { //console.log("Oh no! error " + res.text); 
+      }
 
       if (res.ok) {
         DailyEntryServerActionCreators.receiveCreatedEntry(res.body);
       } else {
-        console.log("Oh no! error " + res.text);
+        // console.log("Oh no! error " + res.text);
       }
    });
 }
-
-module.exports = {
-  get: fetch,
-  save: save
-};
