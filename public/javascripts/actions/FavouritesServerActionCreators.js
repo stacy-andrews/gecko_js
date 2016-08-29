@@ -1,6 +1,4 @@
-"use strict";
-
-var AppDispatcher = require("../dispatcher/YPetVetDispatcher");
+import AppDispatcher from "../dispatcher/dispatcher";
 
 var FavouritesActionCreators = {
 

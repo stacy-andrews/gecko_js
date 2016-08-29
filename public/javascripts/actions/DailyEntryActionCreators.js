@@ -1,4 +1,4 @@
-import AppDispatcher from "../dispatcher/YPetVetDispatcher";
+import AppDispatcher from "../dispatcher/dispatcher";
 
 var EntryApi = require("../api/dailyEntry");
 var FavouritesApi = require("../api/favourites");

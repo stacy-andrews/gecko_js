@@ -8,7 +8,6 @@ var Measurements = require("./Measurements.react.js");
 
 var ReactPropTypes = React.PropTypes;
 var moment = require("moment");
-var energyCalculator = require("../libs/energyCalculator");
 
 function getDailyEntryState() {
   return DailyEntryStore.getCurrent();
@@ -57,17 +56,9 @@ var DailyEntry = React.createClass({
   },
 
   render: function() {
-    var energy = energyCalculator.calculate({
-      exercises: [
-        this.state.morningExercise,
-        this.state.eveningExercise
-      ],
-      foods: this.state.foods
-    });
-
     return (
       <div>
-        <Header params={this.props.params} energy={energy} isLoading={this.state.isLoading} nutrition={this.state.nutrition} onSave={this.save} />
+        <Header params={this.props.params} energy={this.state.energy} isLoading={this.state.isLoading} nutrition={this.state.nutrition} onSave={this.save} />
         <div className="panel panel-default">
           <div className="panel-body">
             <div className="row">

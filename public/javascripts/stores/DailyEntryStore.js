@@ -1,5 +1,5 @@
-import AppDispatcher from "../dispatcher/YPetVetDispatcher";
-import  { EventEmitter }  from "events";
+import appDispatcher from "../dispatcher/dispatcher";
+import  { EventEmitter } from "events";
 var assign = require("object-assign");
 var energyCalculator = require("../libs/energyCalculator");
 import nutritionCalculator from "../libs/nutritionCalculator";
@@ -7,21 +7,23 @@ var foodBuilder = require("../libs/foodBuilder");
 
 var isLoading = false;
 
-var basicEntry = {
-  exercises: [
-    { energy: "", time: "", duration: "" },
-    { energy: "", time: "", duration: "" }
-  ],
-  foods: [],
-  measurements: {
-    chest: 0,
-    stomach: 0,
-    thigh: 0
-  }
-};
+function getEmptyExercise() {
+  return { energy: "", time: "", duration: "" };
+}
+
+function getEmptyMeasurements() {
+  return { energy: "", time: "", duration: "" };
+}
 
 function clone() {
-  return JSON.parse(JSON.stringify(basicEntry));
+  return {
+    exercises: [
+      getEmptyExercise(),
+      getEmptyExercise()
+    ],
+    foods: [],
+    measurements: getEmptyMeasurements()
+  };
 }
 
 var entry = clone();
@@ -34,7 +36,7 @@ function applyFavourites(favourites) {
   }
 }
 
-var YPetVetStore = assign({}, EventEmitter.prototype, {
+var dailyEntryStore = assign({}, EventEmitter.prototype, {
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -61,10 +63,6 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
     };
   }
 });
-
-function getEmptyExercise() {
-  return { energy: "", time: "", duration: "" };
-}
 
 function getExercise(exercise) {
   return {
@@ -97,45 +95,45 @@ function build(entryFromApi) {
   }
 }
 
-AppDispatcher.register(function(action) {
+appDispatcher.register(function(action) {
 
   switch(action.actionType) {
     case "dailyEntry_save_started":
       isLoading = true;
 
-      YPetVetStore.emitChange();
+      dailyEntryStore.emitChange();
       break;
     case "dailyEntry_get_started":
       isLoading = true;
 
-      YPetVetStore.emitChange();
+      dailyEntryStore.emitChange();
       break;
     case "dailyEntry_get_notfound":
       isLoading = false;
       entry = clone();
 
-      YPetVetStore.emitChange();
+      dailyEntryStore.emitChange();
       break;
     case "dailyEntry_get_completed":
       isLoading = false;
       entry = build(action.entry);
 
-      YPetVetStore.emitChange();
+      dailyEntryStore.emitChange();
       break;
     case "dailyEntry_save_completed":
       isLoading = false;
       entry = build(action.entry);
 
-      YPetVetStore.emitChange();
+      dailyEntryStore.emitChange();
       break;
     case "favourites_get_completed":
       applyFavourites(action.favourites);
 
-      YPetVetStore.emitChange();
+      dailyEntryStore.emitChange();
       break;
     default:
       // no op
   }
 });
 
-module.exports = YPetVetStore;
+module.exports = dailyEntryStore;

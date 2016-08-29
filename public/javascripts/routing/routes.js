@@ -2,7 +2,6 @@ var React = require("react");
 var Router = require("react-router");
 
 var Route = Router.Route;
-var Redirect = Router.Redirect;
 var RouterEx = Router.Router;
 var browserHistory = Router.hashHistory;
 var IndexRedirect = Router.IndexRedirect;
