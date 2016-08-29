@@ -1,12 +1,20 @@
 import _ from "lodash";
 import { round } from "./decimals";
 
+function getItem(item, element) {
+  if (!item.nutrition) {
+    return 0;
+  }
+
+  return item.nutrition[element] * item.quantity;
+}
+
 function getNutrition(foods) {
   var summary = _.reduce(foods, function(total, e) {
     return {
-      fat: total.fat + e.nutrition.fat * e.quantity,
-      carbohydrate: total.carbohydrate + e.nutrition.carbohydrate * e.quantity,
-      protein: total.protein + e.nutrition.protein * e.quantity
+      fat: total.fat + getItem(e, "fat"),
+      carbohydrate: total.carbohydrate + getItem(e, "carbohydrate"),
+      protein: total.protein + getItem(e, "protein")
     };
   }, { fat: 0, carbohydrate: 0, protein: 0 });
 
@@ -15,18 +23,6 @@ function getNutrition(foods) {
     carbohydrate: round(summary.carbohydrate, -1),
     protein: round(summary.protein, -1)
   };
-}
-
-function getStatus(diff) {
-  // if (diff < -2000) {
-  //   return "good";
-  // }
-
-  // if (diff >= -2000 && diff <= 2000) {
-    return "neutral";
-  // }
-
-  // return "bad";
 }
 
 function getEnergy(entry) {

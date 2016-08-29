@@ -62,51 +62,76 @@ var YPetVetStore = assign({}, EventEmitter.prototype, {
   }
 });
 
+function getEmptyExercise() {
+  return { energy: "", time: "", duration: "" };
+}
+
+function getExercise(exercise) {
+  return {
+    energy: exercise.energy || "",
+    time: exercise.time || "",
+    duration: exercise.duration || ""
+  };
+}
+
+function normalise(exercises) {
+  if(exercises.length === 0) {
+    return [
+      getEmptyExercise(),
+      getEmptyExercise()
+    ]
+  }
+
+  return [
+    getExercise(exercises[0]),
+    getExercise(exercises[1])
+  ];
+}
+
+function build(entryFromApi) {
+  return {
+    id: entryFromApi.id,
+    exercises: normalise(entryFromApi.exercises),
+    foods: entryFromApi.foods,
+    measurements: entryFromApi.measurements
+  }
+}
+
 AppDispatcher.register(function(action) {
 
   switch(action.actionType) {
     case "dailyEntry_save_started":
       isLoading = true;
+
       YPetVetStore.emitChange();
       break;
     case "dailyEntry_get_started":
       isLoading = true;
+
       YPetVetStore.emitChange();
       break;
     case "dailyEntry_get_notfound":
       isLoading = false;
       entry = clone();
+
       YPetVetStore.emitChange();
       break;
     case "dailyEntry_get_completed":
       isLoading = false;
-      entry = action.entry;
-
-      if(entry.exercises.length === 0) {
-        entry.exercises.push({ energy: "", time: "", duration: "" });
-        entry.exercises.push({ energy: "", time: "", duration: "" });
-      }
+      entry = build(action.entry);
 
       YPetVetStore.emitChange();
-
       break;
     case "dailyEntry_save_completed":
       isLoading = false;
-      entry = action.entry;
-
-      if(entry.exercises.length === 0) {
-        entry.exercises.push({ energy: "", time: "", duration: "" });
-        entry.exercises.push({ energy: "", time: "", duration: "" });
-      }
+      entry = build(action.entry);
 
       YPetVetStore.emitChange();
-
       break;
     case "favourites_get_completed":
       applyFavourites(action.favourites);
 
       YPetVetStore.emitChange();
-
       break;
     default:
       // no op

@@ -15,9 +15,15 @@ function getEntry(today) {
 }
 
 function updateEntry(entry, entryChanges) {
-  entry.exercises = entryChanges.exercises;
-  entry.foods = entryChanges.foods;
-  entry.measurements = entryChanges.measurements;
+  if (typeof entryChanges.exercises !== "undefined") {
+    entry.exercises = entryChanges.exercises;
+  }
+  if (typeof entryChanges.foods !== "undefined") {
+    entry.foods = entryChanges.foods;
+  }
+  if (typeof entry.measurements !== "undefined") {
+    entry.measurements = entryChanges.measurements;
+  }
 
   return new Promise(function(resolve, reject) {
     entry.save(function(saveErr, savedEntry) {

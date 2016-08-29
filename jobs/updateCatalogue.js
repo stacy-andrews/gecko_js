@@ -3,8 +3,6 @@ var CatalogueFood = require("../models/catalogueFood.js");
 var mongoInitialiser = require("../initialisers/mongo");
 var q = require('q');
 
-mongoInitialiser();
-
 function clearCatalogue() {
   var deferred = q.defer();
 
@@ -40,8 +38,6 @@ function saveFood(food) {
       } else {
         deferred.resolve();
       }
-
-      console.log(cf);
     });
 
     return deferred.promise;
@@ -80,9 +76,11 @@ function populateCatalogue() {
     return deferred.promise;
 }
 
-clearCatalogue()
-  .then(populateCatalogue)
-  .then(function() {
-    process.exit();
-  });
+module.exports = function(done) {
+  clearCatalogue()
+    .then(populateCatalogue)
+    .then(function() {
+      done();
+    });
+}
 

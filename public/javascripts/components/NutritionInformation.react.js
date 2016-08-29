@@ -13,7 +13,7 @@ var FoodMenu = React.createClass({
   },
 
   render: function() {
-    var nutritionInfo = this.props.value;
+    var nutritionInfo = (this.props.value) ? this.props.value : { carbohydrate: 0, protein: 0, fat: 0 };
 
     return (
       <Modal.default show={this.props.show} containerStyle={{ width: "600px" }} closeOnOuterClick={true} onClose={this.closeAttributes}>

@@ -44,6 +44,7 @@ gulp.task("prod", function() {
       paths: ["./public/javascripts/"],
       fullPaths: true
     })
+    .transform(babel)
     .transform(reactify)
     .bundle()
     .pipe(source("bundle.js"))

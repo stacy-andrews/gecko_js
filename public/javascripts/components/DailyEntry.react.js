@@ -1,6 +1,4 @@
-"use strict";
-
-var React = require("react");
+import React from "react";
 var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
 var DailyEntryStore = require("../stores/DailyEntryStore");
 var Header = require("./Header.react.js");
