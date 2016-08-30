@@ -1,15 +1,21 @@
 language: node_js
 node_js:
-  - "6"
+- '6'
 env:
-  - CXX=g++-4.8
+- CXX=g++-4.8
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+    - ubuntu-toolchain-r-test
     packages:
-      - g++-4.8
+    - g++-4.8
 before_script:
-  - npm install -g gulp
+- npm install -g gulp
 script:
-  - gulp prod
+- gulp prod
+deploy:
+  provider: heroku
+  api_key:
+    secure: fOO5QEbvOLHfm8M3gXyvnElDWnQCLRzNZSOxo0WPXEUWeSeJ6CC6up7DsRemk3f8UnHaFNEnt2XXj+GM0NvXMK+2+G6DIdJiX23NYZlxY7rmUrp6VXPWZ/7Kq+Uab4RMnjEYp1eiEz857zCQQh9JzUmnKZaEcpaPw9IuSDLwhTgK1kleq2MiCRfjdSEOJnxCz+i3AcBOHoZOWRk2YBWQRu0ynyAK3AvAWbDAiwlqXVOEOuqfuzUCUsvCfPkb8OOxRWuJsdAkwH4f19qP6UUIUtEC3WpoapSJp3kzAl9Q+ClCnGxgc8o8VB/w4Vsj++tr2w3QwqENVhdnuPikpnExd/CIXwrk3igDWQFdZLiREKvy8iLsJxhsZ48Lac9YlNfBvEBukKqPCWDkS7yzo4yQCpz/nwECIew3pqb39QjwkV0/S5SAEZZcx4JDbb5LMHuerwXRwx5c7Go+mJGx6la5Qznx+YXXdIwxxhMYyAK6u7LAAgQnKX4VEnUyqCNZFGs9iSD24UanG6ytbAuAjsbAcJHL/psFtAGBlMAziSKd0NUubzYWJ2UjSjyaRtuLbrjH2ibQ12p5hPQRDqIlzekGlSgEHI6TPdZ551/Y92kZehHdVdY95cFPetihmEV9Qy2fuaIi3zE1oqRBgTpZ9EsmkxvAcl0wV3UDEE57XZ8pDSg=
+  app: young-island-2043
+  skip_cleanup: true
