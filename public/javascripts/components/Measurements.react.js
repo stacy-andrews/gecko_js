@@ -1,5 +1,3 @@
-"use strict";
-
 var React = require("react");
 
 var ReactPropTypes = React.PropTypes;
@@ -27,7 +25,7 @@ var Measurements = React.createClass({
           </div>
           <div className="form-group">
             <label>Thigh</label>
-            <input className="form-control" type="text" placeholder="Thigh" ref="thigh" value={measurements.thigh} onChange={this.thighChanged} />
+            <input className="form-control" type="text" placeholder="thigh" ref="thigh" value={measurements.thigh} onChange={this.thighChanged} />
           </div>
         </div>
       </div>
@@ -53,7 +51,7 @@ var Measurements = React.createClass({
   },
 
   getValue: function(refName) {
-    return this.refs[refName].props.value;
+    return this.refs[refName].value;
   },
 
   getChangeValue: function(override) {

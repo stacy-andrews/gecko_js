@@ -12,7 +12,7 @@ function getEmptyExercise() {
 }
 
 function getEmptyMeasurements() {
-  return { energy: "", time: "", duration: "" };
+  return { chest: "", stomach: "", thigh: "" };
 }
 
 function clone() {
