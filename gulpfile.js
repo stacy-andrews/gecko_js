@@ -1,5 +1,3 @@
-"use strict";
-
 var gulp = require("gulp");
 var browserify = require("browserify");  // Bundles JS.
 var reactify = require("reactify");
