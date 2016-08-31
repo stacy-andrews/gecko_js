@@ -1,6 +1,6 @@
 import request from "superagent";
 
-import favouritesServerActionCreators from "../actions/favouritesServerActionCreators";
+import favouritesServerActionCreators from "../actions/FavouritesServerActionCreators";
 
 function fetch(name) {
   request("api/favourites/" + name)
