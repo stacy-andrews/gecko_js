@@ -1,9 +1,8 @@
-var React = require("react");
-var ReactPropTypes = React.PropTypes;
+import React, { PropTypes } from "react";
 
 var App = React.createClass({
   propTypes: {
-    children: ReactPropTypes.object.isRequired
+    children: PropTypes.object.isRequired
   },
   render: function() {
     return (

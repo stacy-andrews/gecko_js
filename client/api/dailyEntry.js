@@ -1,6 +1,6 @@
 import request from "superagent";
 
-import dailyEntryServerActionCreators from "../actions/dailyEntryServerActionCreators";
+import dailyEntryServerActionCreators from "../actions/DailyEntryServerActionCreators";
 
 export function get(date) {
   request("api/diaryEntries/" + date.format("YYYY-MM-DD"))
