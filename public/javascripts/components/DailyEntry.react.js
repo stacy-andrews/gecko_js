@@ -1,22 +1,22 @@
-import React from "react";
-var DailyEntryActionCreators = require("../actions/DailyEntryActionCreators");
-var DailyEntryStore = require("../stores/DailyEntryStore");
-var Header = require("./Header.react.js");
-var Exercise = require("./Exercise.react.js");
-var FoodsTable = require("./FoodsTable.react.js");
-var Measurements = require("./Measurements.react.js");
+import React, { PropTypes } from "react";
+import moment from "moment";
 
-var ReactPropTypes = React.PropTypes;
-var moment = require("moment");
+import dailyEntryActionCreators from "../actions/dailyEntryActionCreators";
+import dailyEntryStore from "../stores/dailyEntryStore";
+
+import Header from "./Header.react.js";
+import Exercise from "./Exercise.react.js";
+import FoodsTable from "./FoodsTable.react.js";
+import Measurements from "./Measurements.react.js";
 
 function getDailyEntryState() {
-  return DailyEntryStore.getCurrent();
+  return dailyEntryStore.getCurrent();
 }
 
-var DailyEntry = React.createClass({
+export default React.createClass({
 
   propTypes: {
-    params: ReactPropTypes.object.isRequired
+    params: PropTypes.object.isRequired
   },
 
   componentWillReceiveProps: function(newProps) {
@@ -28,7 +28,7 @@ var DailyEntry = React.createClass({
   },
 
   componentDidMount: function() {
-    DailyEntryStore.addChangeListener(this.onDataChange);
+    dailyEntryStore.addChangeListener(this.onDataChange);
 
     this.load(this.props.params);
   },
@@ -44,11 +44,11 @@ var DailyEntry = React.createClass({
       });
     }
 
-    DailyEntryActionCreators.load(date);
+    dailyEntryActionCreators.load(date);
   },
 
   componentWillUnmount: function() {
-    DailyEntryStore.removeChangeListener(this.onDataChange);
+    dailyEntryStore.removeChangeListener(this.onDataChange);
   },
 
   onDataChange: function() {
@@ -124,7 +124,7 @@ var DailyEntry = React.createClass({
   },
 
   save: function() {
-    DailyEntryActionCreators.save({
+    dailyEntryActionCreators.save({
       id: this.state.id,
       exercises: [
         this.state.morningExercise,
@@ -137,5 +137,3 @@ var DailyEntry = React.createClass({
   }
 
 });
-
-module.exports = DailyEntry;
