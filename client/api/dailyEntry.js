@@ -1,16 +1,16 @@
 import request from "superagent";
 
-import DailyEntryServerActionCreators from "../actions/DailyEntryServerActionCreators";
+import dailyEntryServerActionCreators from "../actions/dailyEntryServerActionCreators";
 
 export function get(date) {
   request("api/diaryEntries/" + date.format("YYYY-MM-DD"))
     .end(function(err, res) {
-      if(err) { DailyEntryServerActionCreators.receiveNotFoundEntry(date); }
+      if(err) { dailyEntryServerActionCreators.receiveNotFoundEntry(date); }
 
       if (res.ok) {
-        DailyEntryServerActionCreators.receiveEntry(res.body);
+        dailyEntryServerActionCreators.receiveEntry(res.body);
       } else {
-        DailyEntryServerActionCreators.receiveNotFoundEntry(date);
+        dailyEntryServerActionCreators.receiveNotFoundEntry(date);
       }
     });
 }
@@ -34,7 +34,7 @@ export function save(entry, date) {
       }
 
       if (res.ok) {
-        DailyEntryServerActionCreators.receiveCreatedEntry(res.body);
+        dailyEntryServerActionCreators.receiveCreatedEntry(res.body);
       } else {
         // console.log("Oh no! error " + res.text);
       }

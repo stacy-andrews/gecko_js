@@ -9,16 +9,16 @@ var babel = require("babelify");
 
 var options = {
   files: [
-    "./public/javascripts/**/*.js",
+    "./client/**/*.js",
     "!./public/javascripts/bundle.js",
     "!./public/javascripts/vendor/*.js"
   ]
 };
 
 gulp.task("js", function() {
-  browserify(["./public/javascripts/app.js"],
+  browserify(["./client/app.js"],
             {
-              paths: ["./public/javascripts/"],
+              paths: ["./client/"],
               debug: true
             })
     .transform(babel)
@@ -37,9 +37,9 @@ gulp.task("lint", function() {
 });
 
 gulp.task("prod", function() {
-  browserify(["./public/javascripts/app.js"],
+  browserify(["./client/app.js"],
     {
-      paths: ["./public/javascripts/"],
+      paths: ["./client/"],
       fullPaths: true
     })
     .transform(babel)
