@@ -1,8 +1,8 @@
 import React, { PropTypes } from "react";
 import moment from "moment";
 
-import dailyEntryActionCreators from "../actions/dailyEntryActionCreators";
-import dailyEntryStore from "../stores/dailyEntryStore";
+import dailyEntryActionCreators from "../actions/DailyEntryActionCreators";
+import dailyEntryStore from "../stores/DailyEntryStore";
 
 import Header from "./Header.react.js";
 import Exercise from "./Exercise.react.js";
