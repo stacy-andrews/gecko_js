@@ -8,10 +8,15 @@
     },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "plugins": [
-    "react"
+    "react",
+    "mocha"
   ],
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "mocha/no-exclusive-tests": "error"
+  }
 }

@@ -16,7 +16,7 @@ before_script:
 - npm install -g gulp
 
 script:
-- gulp prod
+- cd client && gulp prod
 
 deploy:
   provider: heroku

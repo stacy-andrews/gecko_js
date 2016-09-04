@@ -1,0 +1,63 @@
+{
+  "name": "gecko-js",
+  "version": "0.0.1",
+  "engines": {
+    "node": "6.3.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "./bin/www",
+    "test-unit": "NODE_ENV=test mocha --require co-mocha 'spec/**/*.spec.js'"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.14.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "browserify-global-shim": "^1.0.0",
+    "chai": "^3.5.0",
+    "co-mocha": "^1.1.3",
+    "envify": "^3.0.0",
+    "eslint": "^3.3.1",
+    "eslint-plugin-mocha": "^4.5.1",
+    "eslint-plugin-react": "^5.2.2",
+    "flux": "^2.1.1",
+    "gulp": "*",
+    "gulp-eslint": "*",
+    "gulp-mocha": "^3.0.1",
+    "gulp-uglify": "*",
+    "jest-cli": "^0.4.3",
+    "karma": "^1.2.0",
+    "karma-browserify": "^5.1.0",
+    "karma-mocha": "^1.1.1",
+    "karma-mocha-reporter": "^2.1.0",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-sinon-chai": "^1.2.3",
+    "mocha": "^3.0.2",
+    "react": "^15.0.2",
+    "react-bootstrap-async-autocomplete": "0.0.3",
+    "react-collapsible-mixin": "^1.0.0-pre.2",
+    "react-dom": "^15.0.2",
+    "react-router": "^2.4.0",
+    "react-twitter-typeahead": "^1.1.2",
+    "reactify": "^0.15.2",
+    "simple-modal": "^1.0.1",
+    "simple-react-modal": "^0.4.7",
+    "sinon": "^1.17.5",
+    "sinon-chai": "^2.8.0",
+    "uglify-js": "~2.4.15",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "*"
+  },
+  "browserify": {
+    "transform": [
+      "reactify",
+      "envify",
+      "browserify-global-shim"
+    ]
+  },
+  "browserify-global-shim": {
+    "jquery": "$",
+    "Bloodhound": "Bloodhound"
+  }
+}

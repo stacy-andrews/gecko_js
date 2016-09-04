@@ -1,24 +1,23 @@
-var gulp = require("gulp");
-var browserify = require("browserify");  // Bundles JS.
-var reactify = require("reactify");
-var source = require("vinyl-source-stream");
-var eslint = require("gulp-eslint");
-var uglify = require("gulp-uglify");
-var buffer = require("vinyl-buffer");
-var babel = require("babelify");
+const gulp = require("gulp");
+const browserify = require("browserify");  // Bundles JS.
+const reactify = require("reactify");
+const source = require("vinyl-source-stream");
+const eslint = require("gulp-eslint");
+const uglify = require("gulp-uglify");
+const buffer = require("vinyl-buffer");
+const babel = require("babelify");
 
-var options = {
+const options = {
   files: [
-    "./client/**/*.js",
-    "!./public/javascripts/bundle.js",
-    "!./public/javascripts/vendor/*.js"
+    "./src/**/*.js",
+    "./spec/**/*.spec.js",
   ]
 };
 
 gulp.task("js", function() {
-  browserify(["./client/app.js"],
+  browserify(["./src/app.js"],
             {
-              paths: ["./client/"],
+              paths: ["./src/"],
               debug: true
             })
     .transform(babel)
@@ -26,7 +25,7 @@ gulp.task("js", function() {
     .bundle()
     .on("error", function(err){ console.log(err.message); })
     .pipe(source("bundle.js"))
-    .pipe(gulp.dest("./public/javascripts"));
+    .pipe(gulp.dest("../public/javascripts"));
 });
 
 gulp.task("lint", function() {
@@ -36,10 +35,15 @@ gulp.task("lint", function() {
         .pipe(eslint.failOnError());
 });
 
+// gulp.task("test", function() {
+//   return gulp.src("./spec/**/*.spec.js")
+//         .pipe(mocha()); 
+// });
+
 gulp.task("prod", function() {
-  browserify(["./client/app.js"],
+  browserify(["./src/app.js"],
     {
-      paths: ["./client/"],
+      paths: ["./src/"],
       fullPaths: true
     })
     .transform(babel)
@@ -48,9 +52,8 @@ gulp.task("prod", function() {
     .pipe(source("bundle.js"))
     .pipe(buffer())
     .pipe(uglify())
-    .pipe(gulp.dest("./public/javascripts"));
+    .pipe(gulp.dest("../public/javascripts"));
 });
-
 
 gulp.task("watch", function() {
   gulp.watch(options.files, ["js", "lint"]);

@@ -6,8 +6,8 @@ var RouterEx = Router.Router;
 var browserHistory = Router.hashHistory;
 var IndexRedirect = Router.IndexRedirect;
 
-var DailyEntry = require("components/DailyEntry.react");
-var App = require("components/App.react");
+var DailyEntry = require("../components/DailyEntry.react");
+var App = require("../components/App.react");
 
 var routes = (
   <RouterEx history={browserHistory}>
