@@ -42,16 +42,5 @@
     "mocha": "^3.0.2",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0"
-  },
-  "browserify": {
-    "transform": [
-      "reactify",
-      "envify",
-      "browserify-global-shim"
-    ]
-  },
-  "browserify-global-shim": {
-    "jquery": "$",
-    "Bloodhound": "Bloodhound"
   }
 }
