@@ -1,7 +1,7 @@
 import AppDispatcher from "../dispatcher/dispatcher";
 
-var EntryApi = require("../api/dailyEntry");
-var FavouritesApi = require("../api/favourites");
+import EntryApi from "../api/dailyEntry";
+import FavouritesApi from "../api/favourites";
 
 var DailyEntryActionCreators = {
   save: function(entry, date) {

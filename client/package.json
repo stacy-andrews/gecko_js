@@ -37,7 +37,7 @@
     "react-bootstrap-async-autocomplete": "0.0.3",
     "react-collapsible-mixin": "^1.0.0-pre.2",
     "react-dom": "^15.0.2",
-    "react-router": "^2.4.0",
+    "react-router": "*",
     "react-twitter-typeahead": "^1.1.2",
     "reactify": "^0.15.2",
     "simple-modal": "^1.0.1",
@@ -59,5 +59,12 @@
   "browserify-global-shim": {
     "jquery": "$",
     "Bloodhound": "Bloodhound"
+  },
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.24.0",
+    "webpack": "^1.13.2"
   }
 }

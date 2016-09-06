@@ -1,4 +1,7 @@
 import React, { PropTypes } from "react";
+
+import { withRouter } from "react-router";
+
 import moment from "moment";
 
 import dailyEntryActionCreators from "../actions/DailyEntryActionCreators";
@@ -13,7 +16,7 @@ function getDailyEntryState() {
   return dailyEntryStore.getCurrent();
 }
 
-export default React.createClass({
+export default withRouter( React.createClass({
 
   propTypes: {
     params: PropTypes.object.isRequired
@@ -136,4 +139,4 @@ export default React.createClass({
     this.getCurrentDate(this.props.params));
   }
 
-});
+}));

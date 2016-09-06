@@ -1,6 +1,6 @@
 import AppDispatcher from "../dispatcher/dispatcher";
 
-var DailyEntryActionCreators = {
+export default {
 
   receiveEntry: function(entry) {
     AppDispatcher.dispatch({
@@ -24,5 +24,3 @@ var DailyEntryActionCreators = {
   }
 
 };
-
-module.exports = DailyEntryActionCreators;

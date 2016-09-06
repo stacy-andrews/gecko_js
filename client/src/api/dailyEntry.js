@@ -30,7 +30,7 @@ export function save(entry, date) {
     .send(entry)
     .set("Accept", "application/json")
     .end(function(err, res){
-      if(err) { //console.log("Oh no! error " + res.text); 
+      if(err) { //console.log("Oh no! error " + res.text);
       }
 
       if (res.ok) {
@@ -39,4 +39,9 @@ export function save(entry, date) {
         // console.log("Oh no! error " + res.text);
       }
    });
+}
+
+export default {
+  get: get,
+  save: save
 }
