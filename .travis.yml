@@ -5,6 +5,9 @@ node_js:
 
 env:
 - CXX=g++-4.8
+- TEST_DIR=client
+- TEST_DIR=.
+
 addons:
   apt:
     sources:
@@ -13,10 +16,10 @@ addons:
     - g++-4.8
 
 before_script:
-- npm install -g gulp
+- npm install -g webpack
 
 script:
-- cd client && gulp prod
+- cd $TEST_DIR && webpack
 
 deploy:
   provider: heroku
